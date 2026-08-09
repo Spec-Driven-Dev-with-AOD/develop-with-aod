@@ -66,13 +66,6 @@ Do not create concatenated copies of these sources merely to call them bundles.
 That would restore duplicated artifacts and increase static prompt input. Add a
 reference to only those stage load sets that require it.
 
-## Non-Skill Material
-
-The user workflow stays in `docs/aod_user_workflow.md`; the research paper stays
-under `paper/`. Historical material under `archive/`, transcripts, and test
-examples are not active instruction sources. They must not be loaded as hidden
-authority by the skill.
-
 ## Maintenance Check
 
 After changing an active model, format, rule, schema, stage procedure, invocation

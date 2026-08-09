@@ -1,10 +1,11 @@
 # Develop with AOD
 
 `develop-with-aod` is a Codex skill for specification-driven application
-development using Attainment-Oriented Declarations (AOD). It guides an
-application from natural-language intent through an inspectable AOD package,
-review, linting, logical preview, implementation profiling, and verified
-program generation.
+development using
+[Attainment-Oriented Declarations (AOD)](.agents/skills/develop-with-aod/references/aod_yaml_model_summary.md).
+It guides an application from natural-language intent through an inspectable
+AOD package, review, linting, logical preview, implementation profiling, and
+verified program generation.
 
 The skill currently uses **Interpretive AOD**. AOD declarations may contain
 controlled natural language, so linting and generation can still require model
