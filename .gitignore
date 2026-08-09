@@ -1,0 +1,21 @@
+# Operating-system and editor files
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*~
+.idea/
+.vscode/
+
+# Local Codex state and temporary output
+.codex/
+tmp/
+*.tmp
+~$*
+
+# Secrets and local environment configuration
+.env
+.env.*
+!.env.example
+*.key
+*.pem

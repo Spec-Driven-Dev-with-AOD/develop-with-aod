@@ -1,0 +1,482 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:aod:schema:traceability:v1",
+  "title": "AOD implementation traceability",
+  "description": "Structure of a derived <project-slug>.aod-traceability.yaml file.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "package",
+    "implementation",
+    "confirmed_user_decisions",
+    "mappings",
+    "implementation_surfaces"
+  ],
+  "properties": {
+    "schema": {
+      "const": "aod-traceability/v1"
+    },
+    "package": {
+      "$ref": "#/$defs/packagePin"
+    },
+    "implementation": {
+      "$ref": "#/$defs/implementation"
+    },
+    "confirmed_user_decisions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/userDecision"
+      }
+    },
+    "mappings": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/mapping"
+      }
+    },
+    "implementation_surfaces": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/implementationSurface"
+      }
+    }
+  },
+  "$defs": {
+    "digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "filePath": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?![A-Za-z]:)(?!/)(?!.*\\\\)(?!.*(?:^|/)\\.\\.(?:/|$))[^\\r\\n]+$"
+    },
+    "packagePin": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "format",
+        "id",
+        "revision",
+        "specification",
+        "context",
+        "implementation_profile",
+        "experience"
+      ],
+      "properties": {
+        "format": {
+          "const": "aod-package/v1"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "specification": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["file", "profile", "digest"],
+          "properties": {
+            "file": {
+              "allOf": [
+                { "$ref": "#/$defs/filePath" },
+                { "pattern": "^(?:[^/\\r\\n]+/)*[a-z0-9]+(?:-[a-z0-9]+)*\\.aod\\.yaml$" }
+              ]
+            },
+            "profile": {
+              "const": "aod-yaml/v1"
+            },
+            "digest": {
+              "$ref": "#/$defs/digest"
+            }
+          }
+        },
+        "context": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["file", "format", "digest"],
+          "properties": {
+            "file": {
+              "allOf": [
+                { "$ref": "#/$defs/filePath" },
+                { "pattern": "^(?:[^/\\r\\n]+/)*[a-z0-9]+(?:-[a-z0-9]+)*\\.aod-context\\.md$" }
+              ]
+            },
+            "format": {
+              "const": "aod-context/v1"
+            },
+            "digest": {
+              "$ref": "#/$defs/digest"
+            }
+          }
+        },
+        "implementation_profile": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["file", "schema", "digest"],
+          "properties": {
+            "file": {
+              "allOf": [
+                { "$ref": "#/$defs/filePath" },
+                { "pattern": "^(?:[^/\\r\\n]+/)*[a-z0-9]+(?:-[a-z0-9]+)*\\.aod-implementation\\.yaml$" }
+              ]
+            },
+            "schema": {
+              "const": "aod-implementation-profile/v1"
+            },
+            "digest": {
+              "$ref": "#/$defs/digest"
+            }
+          }
+        },
+        "experience": {
+          "$ref": "#/$defs/experiencePin"
+        }
+      }
+    },
+    "experienceResourcePin": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["file", "role", "digest"],
+      "properties": {
+        "file": {
+          "allOf": [
+            { "$ref": "#/$defs/filePath" },
+            { "pattern": "^aod/experience-resources/.+" }
+          ]
+        },
+        "role": {
+          "enum": [
+            "design-guide",
+            "content-guide",
+            "logo",
+            "visual-asset",
+            "other"
+          ]
+        },
+        "media_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "digest": {
+          "$ref": "#/$defs/digest"
+        }
+      }
+    },
+    "experiencePin": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["mode"],
+          "properties": {
+            "mode": {
+              "const": "restrained-internal-tool-defaults"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["mode", "file", "format", "digest"],
+          "properties": {
+            "mode": {
+              "const": "brief"
+            },
+            "file": {
+              "allOf": [
+                { "$ref": "#/$defs/filePath" },
+                { "pattern": "^aod/[a-z0-9]+(?:-[a-z0-9]+)*\\.aod-experience\\.md$" }
+              ]
+            },
+            "format": {
+              "const": "aod-experience/v1"
+            },
+            "digest": {
+              "$ref": "#/$defs/digest"
+            },
+            "resources": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "#/$defs/experienceResourcePin"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "implementation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "project_slug",
+        "project_root",
+        "realization_report",
+        "traceability_check"
+      ],
+      "properties": {
+        "project_slug": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "project_root": {
+          "const": "."
+        },
+        "realization_report": {
+          "allOf": [
+            { "$ref": "#/$defs/filePath" },
+            { "const": "aod-environment-realization.md" }
+          ]
+        },
+        "traceability_check": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["command"],
+          "properties": {
+            "command": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      }
+    },
+    "userDecision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "scope", "decision", "origin"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^USER-[0-9]{3,}$"
+        },
+        "scope": {
+          "enum": [
+            "presentation",
+            "data-exposure",
+            "implementation"
+          ]
+        },
+        "decision": {
+          "type": "string",
+          "minLength": 1
+        },
+        "origin": {
+          "const": "additional-implementation-direction"
+        }
+      }
+    },
+    "mappingSources": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "aod": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "environment": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^ENV-[0-9]{3,}$"
+          }
+        },
+        "profile": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "experience": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "technical_decisions": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^TRD-[0-9]{3,}$"
+          }
+        },
+        "user_decisions": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^USER-[0-9]{3,}$"
+          }
+        }
+      },
+      "anyOf": [
+        { "required": ["aod"] },
+        { "required": ["environment"] },
+        { "required": ["profile"] },
+        { "required": ["experience"] },
+        { "required": ["technical_decisions"] },
+        { "required": ["user_decisions"] }
+      ]
+    },
+    "locator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "value"],
+      "properties": {
+        "kind": {
+          "enum": [
+            "symbol",
+            "route",
+            "selector",
+            "schema-field",
+            "source-marker",
+            "configuration",
+            "file",
+            "test",
+            "other"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "location": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["file", "locator", "role"],
+      "properties": {
+        "file": {
+          "$ref": "#/$defs/filePath"
+        },
+        "locator": {
+          "$ref": "#/$defs/locator"
+        },
+        "role": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "mapping": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "kind",
+        "sources",
+        "implementation",
+        "tests"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^TRACE-[0-9]{3,}$"
+        },
+        "kind": {
+          "enum": [
+            "path",
+            "standing-definition",
+            "binding",
+            "reaction",
+            "capability",
+            "environment-responsibility",
+            "technical-mechanism",
+            "combined"
+          ]
+        },
+        "sources": {
+          "$ref": "#/$defs/mappingSources"
+        },
+        "implementation": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/location"
+          }
+        },
+        "tests": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/location"
+          }
+        }
+      }
+    },
+    "implementationSurface": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "kind",
+        "description",
+        "location",
+        "authorized_by"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^SCOPE-[0-9]{3,}$"
+        },
+        "kind": {
+          "enum": [
+            "user-visible-behavior",
+            "user-interface-control",
+            "user-interface-view",
+            "presentation-style",
+            "editorial-copy",
+            "business-endpoint",
+            "domain-field",
+            "audit-field",
+            "domain-rejection-rule",
+            "conflict-policy",
+            "failure-policy",
+            "api-exposed-field",
+            "data-exposure",
+            "external-effect",
+            "other-business-surface"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "location": {
+          "$ref": "#/$defs/location"
+        },
+        "authorized_by": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^TRACE-[0-9]{3,}$"
+          }
+        }
+      }
+    }
+  }
+}

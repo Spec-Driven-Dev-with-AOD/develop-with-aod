@@ -1,0 +1,577 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:aod:schema:implementation-profile:v1",
+  "title": "AOD Implementation Profile",
+  "description": "Structural schema for a package-pinned AOD technology and operational implementation profile.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "project",
+    "package",
+    "specification",
+    "environment_contract",
+    "target",
+    "environment_policy",
+    "capability_choices"
+  ],
+  "properties": {
+    "schema": {
+      "const": "aod-implementation-profile/v1"
+    },
+    "project": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "slug"],
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Human-readable project name."
+        },
+        "slug": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+          "description": "Canonical project slug copied from the AOD package filename stem."
+        }
+      }
+    },
+    "package": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["format", "id", "revision"],
+      "properties": {
+        "format": {
+          "const": "aod-package/v1"
+        },
+        "id": {
+          "$ref": "#/$defs/packageId"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "specification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["file", "profile", "digest"],
+      "properties": {
+        "file": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\.aod\\.yaml$"
+        },
+        "profile": {
+          "const": "aod-yaml/v1"
+        },
+        "digest": {
+          "$ref": "#/$defs/sha256Digest"
+        }
+      }
+    },
+    "environment_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["file", "format", "digest"],
+      "properties": {
+        "file": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\.aod-context\\.md$"
+        },
+        "format": {
+          "const": "aod-context/v1"
+        },
+        "digest": {
+          "$ref": "#/$defs/sha256Digest"
+        }
+      }
+    },
+    "experience": {
+      "description": "Confirmed presentation policy. New profiles emit this field; omission remains valid for legacy v1 profiles and means restrained defaults.",
+      "$ref": "#/$defs/experiencePolicy"
+    },
+    "extends": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\.aod-implementation\\.ya?ml$"
+    },
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "architecture"],
+      "properties": {
+        "kind": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "architecture": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    },
+    "stack": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "frontend": {
+          "$ref": "#/$defs/stackComponent"
+        },
+        "backend": {
+          "$ref": "#/$defs/stackComponent"
+        },
+        "persistence": {
+          "$ref": "#/$defs/stackComponent"
+        }
+      }
+    },
+    "deployment": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "runtime_portability": {
+          "enum": ["portable", "host-bound"],
+          "description": "Whether deployment targets a declared compatibility boundary or depends on a host or provider. Portability does not select OS, artifact standard, packaging, or orchestration. New and refreshed deployable profiles emit this field."
+        },
+        "platform": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Declared runtime and workload OS class plus supported architectures, or, only for a host-bound deployment, the selected host or provider boundary."
+        },
+        "packaging": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Selected artifact or interchange standard and deployment packaging or orchestration format."
+        },
+        "environments": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/nonEmptyString"
+          }
+        },
+        "prerequisites": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/deploymentPrerequisite"
+          }
+        },
+        "lifecycle": {
+          "$ref": "#/$defs/deploymentLifecycle"
+        },
+        "options": {
+          "type": "object"
+        }
+      }
+    },
+    "environment_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "unresolved_contract_item",
+        "simulation",
+        "secrets"
+      ],
+      "properties": {
+        "unresolved_contract_item": {
+          "const": "ask"
+        },
+        "simulation": {
+          "enum": ["explicit-only", "allowed", "prohibited"]
+        },
+        "secrets": {
+          "const": "external-configuration"
+        }
+      }
+    },
+    "verification_policy": {
+      "$ref": "#/$defs/verificationPolicy"
+    },
+    "capability_choices": {
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^[a-z][a-z0-9_-]*$"
+      },
+      "additionalProperties": {
+        "allOf": [
+          {
+            "$ref": "#/$defs/realization"
+          },
+          {
+            "required": ["covers"]
+          }
+        ]
+      }
+    },
+    "contract_overrides": {
+      "type": "object",
+      "minProperties": 1,
+      "patternProperties": {
+        "^ENV-[0-9]{3,}$": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/realization"
+            },
+            {
+              "not": {
+                "required": ["covers"]
+              }
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "constraints": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "required": {
+          "$ref": "#/$defs/uniqueStringList"
+        },
+        "prohibited": {
+          "$ref": "#/$defs/uniqueStringList"
+        },
+        "preferences": {
+          "$ref": "#/$defs/uniqueStringList"
+        }
+      }
+    },
+    "generator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id"],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "options": {
+          "type": "object"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "nonEmptyString": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "packageId": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "sha256Digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "relativeFilePath": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?![A-Za-z]:)(?!/)(?!.*\\\\)(?!.*(?:^|/)\\.\\.(?:/|$))[^\\r\\n]+$"
+    },
+    "experienceResource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["file", "role", "digest"],
+      "properties": {
+        "file": {
+          "$ref": "#/$defs/relativeFilePath"
+        },
+        "role": {
+          "enum": [
+            "design-guide",
+            "content-guide",
+            "logo",
+            "visual-asset",
+            "other"
+          ]
+        },
+        "media_type": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "digest": {
+          "$ref": "#/$defs/sha256Digest"
+        }
+      }
+    },
+    "experiencePolicy": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["mode"],
+          "properties": {
+            "mode": {
+              "const": "restrained-internal-tool-defaults"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["mode", "file", "format", "digest"],
+          "properties": {
+            "mode": {
+              "const": "brief"
+            },
+            "file": {
+              "allOf": [
+                { "$ref": "#/$defs/relativeFilePath" },
+                { "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*\\.aod-experience\\.md$" }
+              ]
+            },
+            "format": {
+              "const": "aod-experience/v1"
+            },
+            "digest": {
+              "$ref": "#/$defs/sha256Digest"
+            },
+            "resources": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "#/$defs/experienceResource"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "envIdList": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^ENV-[0-9]{3,}$"
+      }
+    },
+    "uniqueStringList": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/nonEmptyString"
+      }
+    },
+    "deploymentLifecycle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "persistent_data",
+        "migrations",
+        "seed",
+        "destructive_reset"
+      ],
+      "properties": {
+        "persistent_data": {
+          "enum": ["preserve", "disposable-test", "not-applicable"]
+        },
+        "migrations": {
+          "enum": [
+            "automatic-before-start",
+            "explicit-before-start",
+            "operator-managed",
+            "not-applicable"
+          ]
+        },
+        "seed": {
+          "enum": [
+            "none",
+            "explicit-test-only",
+            "automatic-test-only",
+            "operator-managed",
+            "not-applicable"
+          ]
+        },
+        "destructive_reset": {
+          "enum": ["prohibited", "explicit-confirmation", "not-applicable"]
+        }
+      }
+    },
+    "verificationPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["real_external_effects"],
+      "properties": {
+        "real_external_effects": {
+          "enum": ["prohibited", "explicit-confirmation", "allowed"]
+        }
+      }
+    },
+    "nonSecretConfiguration": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": {
+        "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+      },
+      "additionalProperties": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/nonEmptyString"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "boolean"
+          }
+        ]
+      }
+    },
+    "provisioningPlan": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source",
+        "responsible_party",
+        "delivery",
+        "required_before"
+      ],
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "source": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "mode": {
+          "enum": [
+            "profile-defined",
+            "setup-generated",
+            "derived",
+            "operator-provided",
+            "external-provider"
+          ]
+        },
+        "responsible_party": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "delivery": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "required_before": {
+          "enum": [
+            "generation",
+            "build",
+            "startup",
+            "integration-verification",
+            "deployment"
+          ]
+        },
+        "configuration": {
+          "$ref": "#/$defs/uniqueStringList"
+        },
+        "non_secret_configuration": {
+          "$ref": "#/$defs/nonSecretConfiguration"
+        },
+        "notes": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    },
+    "deploymentPrerequisite": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/provisioningPlan"
+        },
+        {
+          "required": ["name"]
+        }
+      ]
+    },
+    "stackComponent": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "language": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "runtime": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "framework": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "technology": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "libraries": {
+          "$ref": "#/$defs/uniqueStringList"
+        },
+        "options": {
+          "type": "object"
+        }
+      }
+    },
+    "realization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["realization"],
+      "properties": {
+        "covers": {
+          "$ref": "#/$defs/envIdList"
+        },
+        "realization": {
+          "enum": [
+            "generated-program",
+            "host-runtime",
+            "external-service",
+            "user-configuration",
+            "simulation",
+            "generator-choice"
+          ]
+        },
+        "technology": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "durability": {
+          "enum": [
+            "required",
+            "best-effort",
+            "not-required",
+            "contract-defined",
+            "generator-choice"
+          ]
+        },
+        "simulation_allowed": {
+          "type": "boolean"
+        },
+        "configuration": {
+          "$ref": "#/$defs/uniqueStringList"
+        },
+        "provisioning": {
+          "$ref": "#/$defs/provisioningPlan"
+        },
+        "notes": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "realization": {
+                "const": "simulation"
+              }
+            },
+            "required": ["realization"]
+          },
+          "then": {
+            "required": ["simulation_allowed"],
+            "properties": {
+              "simulation_allowed": {
+                "const": true
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}
