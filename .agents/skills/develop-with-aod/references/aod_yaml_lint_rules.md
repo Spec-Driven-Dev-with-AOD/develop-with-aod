@@ -1,12 +1,13 @@
 # AOD-YAML Lint Rules
 
-`aod_yaml_lint_rules.md` defines the shared inspection and finding policy for AOD-YAML. It does not redefine the model or context format.
+`aod_yaml_lint_rules.md` defines the shared inspection and finding policy for AOD-YAML. It does not redefine the model, framework package profile, or context format.
 
 ## Authority and Modes
 
 1. `aod_yaml_model_summary.md` is the sole authority for AOD model and AOD-YAML syntax and semantics.
-2. `aod_context_format.md` is the sole authority for `*.aod-context.md` structure and meaning.
-3. This file governs lint procedure, severities, and required analysis data.
+2. `aod_framework_package_profile.md` is the sole authority for stricter framework authoring requirements beyond the model.
+3. `aod_context_format.md` is the sole authority for `*.aod-context.md` structure and meaning.
+4. This file governs lint procedure, severities, and required analysis data.
 
 Use **AOD-only mode** for one `*.aod.yaml` file. Use **package mode** when its companion `*.aod-context.md` is supplied. An absent context is not a finding in AOD-only mode unless the calling workflow explicitly requires a package.
 
@@ -41,7 +42,7 @@ Validate every applicable rule in every section of `aod_yaml_model_summary.md`. 
 | Occurrence Instances and Reaction Invocations | Standing versus occurrence roles, observation source and cadence, repeated attainment, startup, replay, stable payloads and bindings, context-sensitive ownership, partition, capture, lifetime and isolation, invocation isolation, and shared persistent state. |
 | Attainment and Non-Attainment | Actual success before follow-ons, valued and resultative attainment, structured constituent paths, partial bindings, and non-attainment. |
 | Given Paths and Initialization | Mistaken startup or universal initialization and correct instance scoping. |
-| Implicit Declarations | Accepted implicit paths, unclear sources or projections, and every inferred capability use without demands for redundant declarations. |
+| Implicit Declarations | Model-valid implicit paths, unclear sources or projections, and every inferred capability use without treating absent entries as an AOD-model error. |
 | Natural-Language Declarations and Binding | One coherent result of the right role, statement-like syntax, self-reference, semantic compactness, vague catch-alls, hidden independent policies, avoidable helpers, stable row or singleton bindings, equivalent wording, canonicalization, and controlled semantic bridges. |
 | Effects and Environment Capabilities | Represented state versus effectful environment capability, every causal capability use, on-demand inputs, observational eligibility versus atomic enforcement, write-through versus persistence acknowledgment, success or failure boundaries, and unsupported operational guarantees. |
 | Recursion and Progress | Definition cycles, reaction cycles, credible progress, termination or partial non-attainment, and order-independent recursion. |
@@ -76,7 +77,15 @@ Treat every accepted replay or redelivery as a new occurrence unless suppression
 
 Do not treat a standing eligibility check over mutable shared state as atomic enforcement. When the checked invariant must hold at persistence or effect success, verify that the responsible capability and environment contract enforce it atomically and define conflict as non-attainment; otherwise report the resulting race or consistency risk.
 
-### 3. Audit the Context in Package Mode
+### 3. Audit the Framework Package Profile
+
+After completing the semantic inventory, compare every inferred or assumed AOD path with the paths that occur in the four AOD entry forms. A path is explicit when it occurs as a bare or determined given-context entry, triggering path `Q`, or bare or determined reaction target. A textual reference inside `D` is not by itself an entry.
+
+For every inventory path absent from all entry forms, report one framework-profile `WARNING` with category `PROF001`. State that the path may be validly implicit under the AOD model but the package does not conform to `aod_framework_package_profile.md`. Give the inference basis, every material use site, the exact bare entry `- P` to add, and the most relevant existing group. Do not warn for a path already explicit in another entry form, request a duplicate bare entry, infer an ambiguous path merely to satisfy the profile, or mutate the input. Resolve material inference ambiguity under the model audit before recommending an entry.
+
+Treat explicit-declaration normalization as nonbehavioral package mechanics. It does not define or initialize a path, authorize behavior, require an environment-contract row, or belong in `Design Decisions`.
+
+### 4. Audit the Context in Package Mode
 
 Apply every rule in `aod_context_format.md` and verify:
 
@@ -95,11 +104,11 @@ Coverage and traceability are bidirectional. Report both an uncovered AOD depend
 
 ## Findings, Severity, and Status
 
-Use stable category IDs such as `YAML001`, `AOD001`, `SEM001`, `CTX001`, and `ENV001`.
+Use stable category IDs such as `YAML001`, `AOD001`, `SEM001`, `PROF001`, `CTX001`, and `ENV001`.
 
 - `ERROR`: invalid YAML or AOD grammar; irreconcilable definitions; invalid required context structure or metadata; digest mismatch; duplicate contract ID; exposed secret; or another issue preventing coherent interpretation.
-- `WARNING`: an interpretable but incomplete, ambiguous, contradictory, or materially risky declaration, capability, trace, binding, initialization, causal relation, progress condition, success condition, or operational property.
-- `INFO`: an accepted inference, optional explicit declaration, environment dependency, or nonblocking improvement.
+- `WARNING`: an interpretable but incomplete, ambiguous, contradictory, or materially risky declaration, capability, trace, binding, initialization, causal relation, progress condition, success condition, or operational property; or a model-valid package that omits a bare entry required by the framework profile.
+- `INFO`: an accepted inference, environment dependency, or nonblocking improvement.
 
 Status is `FAIL` with any error, `PASS WITH WARNINGS` with warnings and no errors, and `PASS` with neither. Informational findings do not prevent `PASS`; unavailable parser validation requires an explicit status qualification.
 
@@ -108,6 +117,7 @@ The lint result required by the calling workflow must retain:
 - status and counts;
 - each finding's ID, severity, source location, affected path when applicable, precise issue, and smallest useful recommendation;
 - inferred declarations and capabilities with every relevant use, basis, and confidence;
+- framework-profile conformance and the exact missing bare entries, when any;
 - package integrity and environment-contract assessments in package mode;
 - dependency and reaction graph assessment, including cycles, progress, and termination; and
 - material assumptions, semantic uncertainties, and validation limitations.

@@ -12,6 +12,12 @@ controlled natural language, so linting and generation can still require model
 judgment. The generated AOD package remains the principal behavioral input;
 implementation choices are recorded separately.
 
+The AOD model permits controlled implicit path declarations. Framework packages
+use a stricter authoring profile: every inferred or assumed path must also occur
+in an AOD-YAML entry. The skill adds a declaration-only bare entry such as
+`- P` when the path is not already explicit as a given entry, trigger, or target;
+this changes neither AOD behavior nor environment responsibilities.
+
 ## Workflow
 
 | Stage | Purpose |

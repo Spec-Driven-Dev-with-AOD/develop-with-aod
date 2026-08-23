@@ -129,52 +129,58 @@ Read every listed file completely before acting. Resolve paths relative to this
 ### `create-package`
 
 1. `references/aod_yaml_model_summary.md`
-2. `references/aod_context_format.md`
-3. `references/aod_yaml_lint_rules.md`
-4. `references/stage_create_package.md`
-5. `references/prompt_create_package.md`
+2. `references/aod_framework_package_profile.md`
+3. `references/aod_context_format.md`
+4. `references/aod_yaml_lint_rules.md`
+5. `references/stage_create_package.md`
+6. `references/prompt_create_package.md`
 
 ### `review-package`
 
 1. `references/aod_yaml_model_summary.md`
-2. `references/aod_context_format.md`
-3. `references/aod_yaml_lint_rules.md`
-4. `references/stage_review_package.md`
-5. `references/prompt_review_package.md`
+2. `references/aod_framework_package_profile.md`
+3. `references/aod_context_format.md`
+4. `references/aod_yaml_lint_rules.md`
+5. `references/stage_review_package.md`
+6. `references/prompt_review_package.md`
 
 ### `lint-package`
 
 1. `references/aod_yaml_model_summary.md`
-2. `references/aod_context_format.md`
-3. `references/aod_yaml_lint_rules.md`
-4. `references/stage_lint_package.md`
-5. `references/prompt_lint_package.md`
+2. `references/aod_framework_package_profile.md`
+3. `references/aod_context_format.md`
+4. `references/aod_yaml_lint_rules.md`
+5. `references/stage_lint_package.md`
+6. `references/prompt_lint_package.md`
 
 ### `logical-preview`
 
 1. `references/aod_yaml_model_summary.md`
-2. `references/aod_context_format.md`
-3. `references/stage_logical_preview.md`
-4. `references/prompt_logical_preview.md`
+2. `references/aod_framework_package_profile.md`
+3. `references/aod_context_format.md`
+4. `references/stage_logical_preview.md`
+5. `references/prompt_logical_preview.md`
 
 ### `implementation-profile`
 
 1. `references/aod_yaml_model_summary.md`
-2. `references/aod_context_format.md`
-3. `references/aod_experience_format.md`
-4. `references/aod_implementation_profile.schema.json`
-5. `references/stage_implementation_profile.md`
-6. `references/prompt_implementation_profile.md`
+2. `references/aod_framework_package_profile.md`
+3. `references/aod_context_format.md`
+4. `references/aod_experience_format.md`
+5. `references/aod_implementation_profile.schema.json`
+6. `references/stage_implementation_profile.md`
+7. `references/prompt_implementation_profile.md`
 
 ### `generate-program`
 
 1. `references/aod_yaml_model_summary.md`
-2. `references/aod_context_format.md`
-3. `references/aod_experience_format.md`
-4. `references/aod_traceability_format.md`
-5. `references/aod_traceability.schema.json`
-6. `references/stage_generate_program.md`
-7. `references/prompt_generate_program.md`
+2. `references/aod_framework_package_profile.md`
+3. `references/aod_context_format.md`
+4. `references/aod_experience_format.md`
+5. `references/aod_traceability_format.md`
+6. `references/aod_traceability.schema.json`
+7. `references/stage_generate_program.md`
+8. `references/prompt_generate_program.md`
 
 ## Apply Authority And Inputs
 

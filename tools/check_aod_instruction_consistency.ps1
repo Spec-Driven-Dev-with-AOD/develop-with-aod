@@ -10,6 +10,7 @@ $scriptsRoot = "$skillRoot/scripts"
 $sets = [ordered]@{
     'spec-generation' = @(
         "$referencesRoot/aod_yaml_model_summary.md",
+        "$referencesRoot/aod_framework_package_profile.md",
         "$referencesRoot/aod_context_format.md",
         "$referencesRoot/aod_yaml_lint_rules.md",
         "$referencesRoot/stage_create_package.md",
@@ -17,6 +18,7 @@ $sets = [ordered]@{
     )
     'package-review' = @(
         "$referencesRoot/aod_yaml_model_summary.md",
+        "$referencesRoot/aod_framework_package_profile.md",
         "$referencesRoot/aod_context_format.md",
         "$referencesRoot/aod_yaml_lint_rules.md",
         "$referencesRoot/stage_review_package.md",
@@ -24,6 +26,7 @@ $sets = [ordered]@{
     )
     'linting' = @(
         "$referencesRoot/aod_yaml_model_summary.md",
+        "$referencesRoot/aod_framework_package_profile.md",
         "$referencesRoot/aod_context_format.md",
         "$referencesRoot/aod_yaml_lint_rules.md",
         "$referencesRoot/stage_lint_package.md",
@@ -31,12 +34,14 @@ $sets = [ordered]@{
     )
     'logical-preview' = @(
         "$referencesRoot/aod_yaml_model_summary.md",
+        "$referencesRoot/aod_framework_package_profile.md",
         "$referencesRoot/aod_context_format.md",
         "$referencesRoot/stage_logical_preview.md",
         "$referencesRoot/prompt_logical_preview.md"
     )
     'profile-dialog' = @(
         "$referencesRoot/aod_yaml_model_summary.md",
+        "$referencesRoot/aod_framework_package_profile.md",
         "$referencesRoot/aod_context_format.md",
         "$referencesRoot/aod_experience_format.md",
         "$referencesRoot/aod_implementation_profile.schema.json",
@@ -45,6 +50,7 @@ $sets = [ordered]@{
     )
     'program-generation' = @(
         "$referencesRoot/aod_yaml_model_summary.md",
+        "$referencesRoot/aod_framework_package_profile.md",
         "$referencesRoot/aod_context_format.md",
         "$referencesRoot/aod_experience_format.md",
         "$referencesRoot/aod_traceability_format.md",
@@ -55,12 +61,12 @@ $sets = [ordered]@{
 }
 
 $budgets = @{
-    'spec-generation' = 90000
-    'package-review' = 108000
-    'linting' = 73000
-    'logical-preview' = 65000
-    'profile-dialog' = 100000
-    'program-generation' = 118000
+    'spec-generation' = 96000
+    'package-review' = 116000
+    'linting' = 80000
+    'logical-preview' = 72000
+    'profile-dialog' = 108000
+    'program-generation' = 126000
 }
 
 $invocationContracts = @{
@@ -136,6 +142,10 @@ $requiredHeadings = @{
         '## Effects and Environment Capabilities',
         '## Recursion and Progress'
     )
+    "$referencesRoot/aod_framework_package_profile.md" = @(
+        '## Explicit Path Declarations',
+        '## Stage Enforcement'
+    )
     "$referencesRoot/aod_context_format.md" = @(
         '## Package Identity and Integrity',
         '## Required Structure',
@@ -165,6 +175,7 @@ $requiredHeadings = @{
 
 $requiredTaskPhrases = @{
     "$referencesRoot/aod_yaml_model_summary.md" = @(
+        'framework package profile may require explicit bare entries',
         'Path ::= UppercaseIdentifier',
         'Each identifier segment must begin with an uppercase letter',
         'declared without a standing definition',
@@ -224,10 +235,35 @@ $requiredTaskPhrases = @{
         'resolution or maintenance context',
         'standalone or inline nonbehavioral AOD comment',
         'A recognized concept binding',
+        'framework-required bare entries',
+        'create no contract row by themselves',
         'do not by themselves require separate contract rows',
         'does not establish persisted-set membership'
     )
+    "$referencesRoot/aod_framework_package_profile.md" = @(
+        'does not change AOD semantics',
+        'every AOD path inferred or assumed during semantic interpretation must also occur explicitly as an AOD-YAML entry',
+        'a triggering path `Q` with a reaction list',
+        'Do not add a second bare entry',
+        'paths referenced only in an unquoted determining declaration `D`',
+        'undeclared prefix paths',
+        'concept-rooted constituent path `T.X` and binding-relative constituent path `P.X`',
+        'For every inventory path absent from all entry forms, add exactly one bare given-context entry',
+        'does not by itself require an environment-contract row',
+        'clarify the interpretation first',
+        '`review-package` presents missing entries as one exact, nonbehavioral framework-conformance proposal',
+        '`lint-package` is nonmutating',
+        '`logical-preview`, `implementation-profile`, and `generate-program` stop',
+        'not application behavior'
+    )
     "$referencesRoot/aod_yaml_lint_rules.md" = @(
+        '`aod_framework_package_profile.md` is the sole authority',
+        '### 3. Audit the Framework Package Profile',
+        'A textual reference inside `D` is not by itself an entry',
+        'framework-profile `WARNING` with category `PROF001`',
+        'exact bare entry `- P` to add',
+        'Do not warn for a path already explicit in another entry form',
+        'nonbehavioral package mechanics',
         'deprecated alias for `Design Decisions`',
         'every `generator-assumed` basis has a distinct additional assumption',
         'no behavior already unambiguously entailed by AOD',
@@ -272,6 +308,9 @@ $requiredTaskPhrases = @{
         'must not use comment text as behavioral evidence'
     )
     'docs/maintainers/aod_instruction_architecture.md' = @(
+        'Framework-only explicit-path authoring requirements',
+        'framework package profile',
+        'Keep model semantics and framework authoring policy distinct',
         'Review and revise an AOD package and its business design',
         'Invocation Contracts',
         'Implementation-traceability semantics and coverage',
@@ -280,7 +319,16 @@ $requiredTaskPhrases = @{
         'does not list canonical'
     )
     "$referencesRoot/stage_review_package.md" = @(
-        'at most one active unresolved material item',
+        '## Framework-Conformance Normalization',
+        'Framework conformance proposal | Pending',
+        'Include every missing path in one exact AOD-YAML patch',
+        'Do not add a duplicate for a path already explicit',
+        'stricter than the underlying AOD model',
+        '`Reject`, `Defer`, or `Finish` applies nothing and leaves the same item pending',
+        'Do not add a deferral remark for this mechanical item',
+        'Never record framework-required bare-entry normalization',
+        'If any `PROF001` warning remains, do not finalize',
+        'at most one active unresolved item',
         'BR identifiers are task-local across repeated `review-package` invocations',
         'latest `Next business-review identifier: BR-nnn` completion marker',
         'Every assigned identifier remains consumed',
@@ -298,7 +346,7 @@ $requiredTaskPhrases = @{
         'This open-review state receives no `BR-nnn` identifier',
         'Stage termination requires the standalone control `Finish` or `Discard all`',
         'Finalize only after the standalone response `Finish`',
-        'Present exactly one active unresolved material item per turn',
+        'Present exactly one active unresolved item per turn',
         'Apply the `Preview-Then-Accept Gate` to every user-requested package change',
         'Only a subsequent `Accept` in a later user turn applies that displayed patch',
         '## Preview-Then-Accept Gate',
@@ -421,6 +469,9 @@ $requiredTaskPhrases = @{
         'standard stage-completion menu required by `SKILL.md`'
     )
     "$referencesRoot/stage_create_package.md" = @(
+        'every inferred or assumed path that is absent from all four AOD entry forms receives exactly one bare given-context entry',
+        'Do not add another bare entry for a path already explicit',
+        'no unresolved framework-profile explicit-path warning',
         'primary domain object and purpose or workflow',
         'Accept equivalent user wording',
         'emit a canonical binding idiom only when role and context yield one meaning',
@@ -452,6 +503,8 @@ $requiredTaskPhrases = @{
         'Never derive AOD behavior or environment-contract meaning from comment text'
     )
     "$referencesRoot/stage_lint_package.md" = @(
+        'Report every model-valid path that lacks the bare entry required by the framework profile as `PROF001`',
+        'never add it silently',
         '| Path or relation | Use or location | Inference basis | Confidence |',
         'inferred referenced paths and prefixes',
         'concept-rooted and binding-relative constituent paths',
@@ -477,6 +530,9 @@ $requiredTaskPhrases = @{
         'without requesting secrets'
     )
     "$referencesRoot/stage_implementation_profile.md" = @(
+        'Compare every inferred or assumed path with all four AOD entry forms',
+        'stop before technology questions',
+        'direct the user to `review-package` or `create-package`',
         'Ask exactly one next highest-priority material question',
         "wait for the user's answer before asking another",
         'interrupts progression and is not acceptance of a recommendation',
@@ -564,6 +620,9 @@ $requiredTaskPhrases = @{
         'Pin every normative non-secret guide'
     )
     "$referencesRoot/stage_logical_preview.md" = @(
+        'Compare the resulting path inventory with all four AOD entry forms',
+        'direct the user to `review-package` or `create-package`',
+        'never add or assume it in the preview',
         'distinct occurrence instance',
         'reaction-invocation scope',
         'before resolving any same-path standing definition',
@@ -584,6 +643,9 @@ $requiredTaskPhrases = @{
         'otherwise from the canonical project slug'
     )
     "$referencesRoot/stage_generate_program.md" = @(
+        'Build the complete inferred and assumed path inventory',
+        'stop before writing files',
+        'never add or silently assume it during generation',
         'distinct occurrence instance',
         'begin a reaction-invocation scope',
         'before resolving any same-path standing definition',
@@ -644,11 +706,12 @@ $requiredTaskPhrases = @{
         'pinned original resources under `aod/experience-resources/`'
     )
     "$referencesRoot/aod_traceability_format.md" = @(
-        'every explicit or inferred AOD path',
+        'every explicit AOD path and every inferred semantic relation',
         'recognized concept binding',
         'binding-relative constituent',
         'instantiated standing definition',
-        'name the inferred path or binding relation it implements'
+        'name the inferred binding or instantiation relation it implements',
+        'Framework-required declaration-only entries'
     )
     "$referencesRoot/prompt_generate_program.md" = @(
         'closed-scope preflight',
@@ -661,6 +724,12 @@ $requiredTaskPhrases = @{
         'Never reset persistent data or perform a real external effect'
     )
     'docs/aod_user_workflow.md' = @(
+        'every inferred or assumed path also appears exactly once in an AOD entry',
+        'Such an entry adds no behavior',
+        'one nonbehavioral framework-conformance proposal',
+        'must be accepted before Stage 2 can finalize',
+        'a `PROF001` warning identifies a model-valid path',
+        'Stages 4 through 6 stop rather than silently assume',
         '## 2. Optionally Review the Business Design',
         '## 3. Lint the AOD Package',
         '## 4. Optionally Generate a Logical Preview',
@@ -669,7 +738,7 @@ $requiredTaskPhrases = @{
         'The former identifiers `review-design` and `preview` remain compatibility aliases for `review-package` and `logical-preview`, respectively',
         'not a visual-design specification',
         'do not constrain the final program',
-        'at most one unresolved material proposal at a time',
+        'at most one unresolved proposal at a time',
         'numbering is task-local and remains continuous',
         'counter is not stored in the AOD package',
         'If no reviewer proposal remains, Stage 2 stays open',

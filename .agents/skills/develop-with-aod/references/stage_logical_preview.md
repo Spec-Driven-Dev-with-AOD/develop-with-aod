@@ -13,11 +13,12 @@ Create the application as one actual `.html` file in the current working directo
 Use the bundled references and application-specific inputs with this authority:
 
 1. `aod_yaml_model_summary.md` governs AOD model and AOD-YAML semantics.
-2. `aod_context_format.md` governs the companion context and environment-contract format.
-3. `stage_logical_preview.md` governs the specialized self-contained frontend realization and output.
-4. The attached `*.aod.yaml` file governs application behavior.
-5. The attached `*.aod-context.md` file governs environment responsibilities, capability success conditions, assumptions, and residual concerns.
-6. The explicit preview simulation policy supplied by the calling prompt governs only whether this standalone preview may use visibly labeled substitutes for capabilities that the browser cannot provide.
+2. `aod_framework_package_profile.md` governs stricter explicit-path conformance for framework packages.
+3. `aod_context_format.md` governs the companion context and environment-contract format.
+4. `stage_logical_preview.md` governs the specialized self-contained frontend realization and output.
+5. The attached `*.aod.yaml` file governs application behavior.
+6. The attached `*.aod-context.md` file governs environment responsibilities, capability success conditions, assumptions, and residual concerns.
+7. The explicit preview simulation policy supplied by the calling prompt governs only whether this standalone preview may use visibly labeled substitutes for capabilities that the browser cannot provide.
 
 The context must not add behavior absent from the AOD-YAML. The preview simulation policy must not change AOD behavior, weaken an environment responsibility or success condition, override an explicit user-stated prohibition, or grant simulation permission to a later implementation profile.
 
@@ -25,7 +26,7 @@ Before generation, verify that the context declares `aod-package/v1`, a valid pa
 
 ## Semantic Preflight
 
-Read `aod_yaml_model_summary.md` completely and validate the whole specification against it before generation. Build one executable semantic view containing path roles, context-sensitive ownership, partition, capture, lifetime and isolation, standing definitions and dependencies, recognized application concepts and role-specific bindings, inferred concept-rooted and binding-relative constituent paths, instantiated standing definitions, observation and attainment sources, accepted valued observations, reaction contexts and reaction-invocation scopes, structured bindings and projections, startup and replay behavior, partial attainments, cycles and progress measures, and all `ENV-nnn` responsibilities. Group boundaries remain editorial. If materially different scope interpretations would change behavior and the package does not determine the intended boundary, stop for package clarification rather than selecting a preview interpretation.
+Read `aod_yaml_model_summary.md` completely and validate the whole specification against it before generation. Build one executable semantic view containing path roles, context-sensitive ownership, partition, capture, lifetime and isolation, standing definitions and dependencies, recognized application concepts and role-specific bindings, inferred concept-rooted and binding-relative constituent paths, instantiated standing definitions, observation and attainment sources, accepted valued observations, reaction contexts and reaction-invocation scopes, structured bindings and projections, startup and replay behavior, partial attainments, cycles and progress measures, and all `ENV-nnn` responsibilities. Compare the resulting path inventory with all four AOD entry forms. If any inferred or assumed path lacks an explicit entry required by `aod_framework_package_profile.md`, stop, list every exact `- P` addition and suggested group, and direct the user to `review-package` or `create-package`; never add or assume it in the preview. Group boundaries remain editorial. If materially different scope interpretations would change behavior and the package does not determine the intended boundary, stop for package clarification rather than selecting a preview interpretation.
 
 Apply these implementation-critical consequences of the governing model:
 
@@ -37,7 +38,7 @@ Apply these implementation-critical consequences of the governing model:
 - Compile targets in one reaction context as unordered. Resolve data dependencies as part of target attainment, and use only declared follow-on reaction contexts for dependencies on successful attainment.
 - For every recognized binding of `P` as concept `T`, establish clearly determined binding-relative constituent `P.X` values with the enclosing structured attainment, recognize corresponding concept-rooted `T.X` declarations without inventing standing definitions for them, and apply `T`-rooted standing definitions to corresponding `P`-rooted paths by root substitution. Do not treat a source, condition, qualifier, or ordinary dependency as a constituent, and do not compile these relations as later causal stages.
 - Enter a reaction context only after its path is actually attained or observed. A partial declaration that yields no value remains unattained.
-- Preserve controlled implicit declarations and concept bindings, including clear equivalent wording, but never infer a binding from lowercase ordinary prose or invent an unclear constituent, source, projection, identity bridge, capability, or natural-language meaning.
+- Preserve the semantics of justified path inferences and concept bindings, including clear equivalent wording, while requiring every resulting path to be explicit under the framework profile. Never infer a binding from lowercase ordinary prose or invent an unclear constituent, source, projection, identity bridge, capability, or natural-language meaning.
 
 If the AOD package is structurally invalid, materially contradictory, or too ambiguous to implement faithfully, stop and report the blocking paths or contract items instead of creating an application.
 

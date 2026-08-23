@@ -14,6 +14,7 @@ bundled framework references are never requested from the user.
 | Concern | Sole manual authority under `references/` |
 | --- | --- |
 | AOD model and AOD-YAML syntax and semantics | `aod_yaml_model_summary.md` |
+| Framework-only explicit-path authoring requirements | `aod_framework_package_profile.md` |
 | AOD context, package metadata, and environment contract | `aod_context_format.md` |
 | Optional experience brief and restrained presentation defaults | `aod_experience_format.md` |
 | Shared lint procedure, findings, and severities | `aod_yaml_lint_rules.md` |
@@ -55,16 +56,21 @@ as user attachments.
 
 | Stage | Bundled references |
 | --- | --- |
-| `create-package` | model summary, context format, lint rules, stage procedure, invocation contract |
-| `review-package` | model summary, context format, lint rules, stage procedure, invocation contract |
-| `lint-package` | model summary, context format, lint rules, stage procedure, invocation contract |
-| `logical-preview` | model summary, context format, stage procedure, invocation contract |
-| `implementation-profile` | model summary, context format, experience format, profile schema, stage procedure, invocation contract |
-| `generate-program` | model summary, context format, experience format, traceability format and schema, stage procedure, invocation contract |
+| `create-package` | model summary, framework package profile, context format, lint rules, stage procedure, invocation contract |
+| `review-package` | model summary, framework package profile, context format, lint rules, stage procedure, invocation contract |
+| `lint-package` | model summary, framework package profile, context format, lint rules, stage procedure, invocation contract |
+| `logical-preview` | model summary, framework package profile, context format, stage procedure, invocation contract |
+| `implementation-profile` | model summary, framework package profile, context format, experience format, profile schema, stage procedure, invocation contract |
+| `generate-program` | model summary, framework package profile, context format, experience format, traceability format and schema, stage procedure, invocation contract |
 
 Do not create concatenated copies of these sources merely to call them bundles.
 That would restore duplicated artifacts and increase static prompt input. Add a
 reference to only those stage load sets that require it.
+
+Keep model semantics and framework authoring policy distinct. The model summary
+may explain controlled implicit declarations; the framework package profile may
+require those inferred paths to be exposed as declaration-only bare entries for
+framework-generated and downstream packages.
 
 ## Maintenance Check
 

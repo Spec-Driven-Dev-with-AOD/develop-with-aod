@@ -9,16 +9,17 @@ Generate project files from the AOD package and confirmed profile. Implement its
 Apply these inputs in order:
 
 1. `aod_yaml_model_summary.md`: AOD semantics.
-2. `aod_context_format.md`: environment-contract semantics.
-3. `aod_experience_format.md`: experience boundary and format.
-4. `aod_traceability_format.md`: traceability semantics.
-5. `aod_traceability.schema.json`: traceability structure.
-6. `stage_generate_program.md`: this procedure.
-7. Attached `*.aod.yaml`: authoritative behavior and causality.
-8. Attached `*.aod-context.md`: authoritative responsibilities, success, decisions, assumptions, and residuals.
-9. Attached `*.aod-implementation.yaml`: authoritative realization and operational policy.
-10. Required brief and non-secret resources: authority only for compatible presentation.
-11. Explicit calling-prompt directions: lowest authority and limited to compatible implementation or presentation.
+2. `aod_framework_package_profile.md`: stricter explicit-path conformance for framework packages.
+3. `aod_context_format.md`: environment-contract semantics.
+4. `aod_experience_format.md`: experience boundary and format.
+5. `aod_traceability_format.md`: traceability semantics.
+6. `aod_traceability.schema.json`: traceability structure.
+7. `stage_generate_program.md`: this procedure.
+8. Attached `*.aod.yaml`: authoritative behavior and causality.
+9. Attached `*.aod-context.md`: authoritative responsibilities, success, decisions, assumptions, and residuals.
+10. Attached `*.aod-implementation.yaml`: authoritative realization and operational policy.
+11. Required brief and non-secret resources: authority only for compatible presentation.
+12. Explicit calling-prompt directions: lowest authority and limited to compatible implementation or presentation.
 
 Technology must not alter behavior, and residual concerns are not guarantees. Stop on conflict rather than modify an input, weaken a requirement, or choose incompatibly.
 
@@ -29,6 +30,7 @@ Complete this before writing project files.
 ### Package and Profile Integrity
 
 - Parse the AOD-YAML under the model summary.
+- Build the complete inferred and assumed path inventory and compare it with all four AOD entry forms. If any path lacks the explicit entry required by `aod_framework_package_profile.md`, stop before writing files, list every exact `- P` addition and suggested group, and direct the user to `review-package` or `create-package`; never add or silently assume it during generation.
 - Validate context package identity, UUID, revision, profile and format versions, exact AOD filename, required sections and columns, unique `ENV-nnn` IDs, and exact-byte AOD SHA-256 digest.
 - Parse the profile as YAML and require `schema: aod-implementation-profile/v1`.
 - Parse `aod_traceability.schema.json` as JSON Schema Draft 2020-12 and require the traceability format and schema identifiers defined by the governing traceability files.
@@ -155,7 +157,7 @@ Generate one canonical operational path for first setup, normal start, update wh
 
 ### Implement and Test Behavior
 
-- Implement every relevant explicit or inferred path, standing definition and its concept-binding instantiations, binding, reaction, capability target, progress condition, and termination condition.
+- Implement every relevant explicit path and every inferred semantic relation, including standing-definition concept-binding instantiations, bindings, reactions, capability targets, progress conditions, and termination conditions.
 - Keep UI and persistence connected to one domain state; recompute standing definitions when dependencies change or on demand.
 - Preserve declared causal follow-ons and continue cycles only while progress and attainment remain possible.
 - Keep capability failure observable to diagnostics without falsely attaining its target.

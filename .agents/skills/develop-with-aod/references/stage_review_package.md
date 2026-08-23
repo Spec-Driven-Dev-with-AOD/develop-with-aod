@@ -9,12 +9,13 @@ Conduct an optional, adaptive co-design review of an existing lint-clean AOD pac
 Apply these inputs in order:
 
 1. `aod_yaml_model_summary.md`: AOD model and AOD-YAML syntax and semantics.
-2. `aod_context_format.md`: package metadata, context structure, and environment-contract semantics.
-3. `aod_yaml_lint_rules.md`: package lint procedure, findings, and severity.
-4. `stage_review_package.md`: review workflow, dialog, and output.
-5. The attached `*.aod.yaml`: current authoritative behavior and causality.
-6. The attached `*.aod-context.md`: current package identity, design rationale, environment contract, assumptions, and residual concerns.
-7. The user's statements during this review: authoritative sources of intent, but package-changing statements remain proposals until accepted through the preview gate below.
+2. `aod_framework_package_profile.md`: stricter explicit-path conformance for framework packages.
+3. `aod_context_format.md`: package metadata, context structure, and environment-contract semantics.
+4. `aod_yaml_lint_rules.md`: package lint procedure, findings, and severity.
+5. `stage_review_package.md`: review workflow, dialog, and output.
+6. The attached `*.aod.yaml`: current authoritative behavior and causality.
+7. The attached `*.aod-context.md`: current package identity, design rationale, environment contract, assumptions, and residual concerns.
+8. The user's statements during this review: authoritative sources of intent, but package-changing statements remain proposals until accepted through the preview gate below.
 
 The review never silently improves, completes, reinterprets, or changes the package. Neither a recommendation nor a new user request authorizes a patch; only later acceptance of its exact preview does. Preserve the smallest coherent scope until then.
 
@@ -26,14 +27,15 @@ Before proposing anything:
 2. Validate the context under `aod_context_format.md`, including package format, UUID, positive revision, profiles and formats, canonical filenames, required sections and contract columns, unique `ENV-nnn` identifiers, and the exact-byte AOD SHA-256 digest.
 3. Apply the complete package-mode procedure in `aod_yaml_lint_rules.md`.
 4. Build a compact internal view of actors, authorization, application concepts and role-specific bindings, concept-rooted and binding-relative constituents, instantiated standing definitions, entities and state, occurrences, reactions, persistence, effects, environment responsibilities, assumptions, exclusions, and residual concerns.
+5. Compare the complete inferred and assumed path inventory with all four AOD entry forms. Retain every missing path and its exact bare entry and placement for the mandatory framework-conformance proposal below.
 
-Start the design dialog only when package integrity is valid and no lint error or material unresolved lint warning prevents reliable review. Otherwise stop with the blocking findings and direct the user to correct and lint the package first. Do not mix mandatory lint repair with optional business expansion.
+Start the design dialog only when package integrity is valid and no lint error or material unresolved lint warning prevents reliable review. A `PROF001` warning for a model-valid missing bare entry is the sole exception: handle it through the mandatory framework-conformance proposal below before any optional business proposal. Otherwise stop with the blocking findings and direct the user to correct and lint the package first. Do not mix mandatory semantic repair with optional business expansion.
 
 Do not modify the attached files during preflight or between dialog turns. Maintain in-memory working drafts, a corresponding draft digest, and draft lint status until finalization.
 
 ## Preview-Then-Accept Gate
 
-Except for validated deferred recall below, apply a material patch and report `Applied` only when all three conditions hold:
+Except for validated deferred recall below, apply any package patch and report `Applied` only when all three conditions hold:
 
 1. A prior assistant response presented the exact patch under the same active `BR-nnn` identifier and a `Pending` heading.
 2. That proposal is still active and unchanged.
@@ -49,18 +51,26 @@ Maintain these internal structures throughout the task:
 
 - one working AOD-YAML draft and one working context draft;
 - one stable decision ledger containing each issued BR's latest status, exact displayed patch, matching deferral remark when applicable, and review-session disposition;
-- at most one active unresolved material item;
+- at most one active unresolved item;
 - one exact candidate patch for the active item;
 - a private prioritized backlog of potentially useful reviewer proposals;
 - dependencies among decisions and the current full-package lint result.
 
 BR identifiers are task-local across repeated `review-package` invocations. Before the first assignment in an invocation, inspect prior assistant-issued Stage 2 item headings in the current task and the latest `Next business-review identifier: BR-nnn` completion marker. Use the marker as a lower bound and continue after the highest actually issued heading; if neither exists, start with `BR-001`. Ignore identifiers in framework examples, attached artifacts, user quotations, and hypothetical discussion. Do not reset the sequence because Stage 2 completed, was discarded, or is invoked again.
 
-Use monotonically increasing identifiers `BR-001`, `BR-002`, and so on. Assign an identifier when a material reviewer proposal is presented or any user-requested package change enters the review. Do not assign identifiers to ideas discarded privately before presentation. Every assigned identifier remains consumed after application, rejection, deferral, supersession, or `Discard all`; never renumber or reuse it. Ledger statuses are `pending`, `paused`, `applied`, `rejected`, `deferred`, `superseded`, and `discarded`.
+Use monotonically increasing identifiers `BR-001`, `BR-002`, and so on. Assign an identifier when a framework-conformance proposal or material reviewer proposal is presented or any user-requested package change enters the review. Do not assign identifiers to ideas discarded privately before presentation. Every assigned identifier remains consumed after application, rejection, deferral, supersession, or `Discard all`; never renumber or reuse it. Ledger statuses are `pending`, `paused`, `applied`, `rejected`, `deferred`, `superseded`, and `discarded`.
 
 Reconstruct task-local status needed for deferred recall from assistant-issued Stage 2 proposals and decision responses in the current task. Never derive a BR identity from framework examples, quoted transcripts, attached artifacts, or an unlabeled `Deferred/unspecified:` context item. BR identifiers are not persisted in the AOD package, so a deferred BR from another task is not addressable by identifier.
 
 Immediately before the standard stage-completion menu in every completed or discarded Stage 2 response, output `Next business-review identifier: BR-nnn` with the next unused task-local identifier. This marker is conversational workflow state, not an AOD-package field or review-log artifact. Do not show it while an item remains pending.
+
+## Framework-Conformance Normalization
+
+When preflight finds one or more `PROF001` warnings, make one `Framework conformance proposal | Pending` the first active item. Include every missing path in one exact AOD-YAML patch, adding each path exactly once as a bare given-context entry in the most relevant existing group. Do not add a duplicate for a path already explicit as a given entry, triggering path, or reaction target. Do not change behavior, determining declarations, context content, environment-contract rows, or comments solely for this normalization.
+
+Explain that the additions expose paths already required by the semantic interpretation, are stricter than the underlying AOD model, and have no behavioral effect. Show `No change.` for the context and list only revision and digest maintenance as mechanical finalization consequences. Apply the normal preview-and-accept gate; never normalize silently.
+
+This item is mandatory for a framework-conforming package. `Accept` applies it normally. `Revise: ...` may change placement or correct the inferred inventory, but the revised proposal must still cover every justified missing path. `Reject`, `Defer`, or `Finish` applies nothing and leaves the same item pending; explain that Stage 2 cannot finalize the package while the profile warning remains. Do not add a deferral remark for this mechanical item. `Discard all` may end the review unchanged under `Discarding the Review`, after which downstream framework stages will continue to reject the package. Present no optional reviewer or user proposal until this normalization has been accepted or the review has been discarded.
 
 ## Reviewer Proposals
 
@@ -79,11 +89,11 @@ Governing examples explain semantics only; never use their domain content as pro
 
 For stronger environment-backed guarantees, test relevant partial success, interruption, concurrency, replay or retry, and ambiguous acknowledgment. Put required abstract capability cooperation and stable cross-attempt identity in the candidate contract without selecting technology or provider. Remove a residual concern only when this closes its uncertainty; otherwise narrow the proposal or retain the concern.
 
-Privately discard a proposal that only confirms, restates, relabels, or moves AOD behavior already unambiguous and context-consistent. Retaining scope is material only to resolve ambiguity, conflict, an additional assumption, a residual concern, or a plausible downstream inference. Metadata reclassification, renaming, reordering, and duplicate-prose cleanup are not business-design proposals. A qualifying group split remains the sole editorial exception; add it to the reviewer backlog.
+Privately discard a proposal that only confirms, restates, relabels, or moves AOD behavior already unambiguous and context-consistent. Retaining scope is material only to resolve ambiguity, conflict, an additional assumption, a residual concern, or a plausible downstream inference. Metadata reclassification, renaming, reordering, and duplicate-prose cleanup are not business-design proposals. A qualifying group split remains the sole editorial exception among business-review proposals; add it to the reviewer backlog. Mandatory explicit-declaration normalization is separate nonbehavioral package mechanics.
 
 Reviewer backlog entries have no authority. Re-evaluate the entire private backlog after every applied, rejected, deferred, or superseding decision. Silently remove entries that become irrelevant or duplicative and add newly material entries when a change exposes them.
 
-Absent a current standalone `Finish` or `Discard all`, if no active item and no material reviewer proposal remains, do not finalize, write package files, emit the next-identifier marker, or show the stage-completion menu. Keep Stage 2 open for user-proposed changes and present exactly:
+Absent a current standalone `Finish` or `Discard all`, if no framework-conformance item is required, no active item exists, and no material reviewer proposal remains, do not finalize, write package files, emit the next-identifier marker, or show the stage-completion menu. Keep Stage 2 open for user-proposed changes and present exactly:
 
 ```markdown
 **No Reviewer Proposal Pending**
@@ -104,6 +114,8 @@ For a material context-sensitive scope ambiguity, place the behaviorally signifi
 Interpret the smallest coherent patch by semantic compactness, not minimum line or declaration count. Give an independently meaningful policy a named standing definition when it may be reviewed, changed, tested, or reused separately, or when inline wording would obscure its declaration; reference it from `D`. Keep a simple one-off qualifier inline and never add a path merely to shorten prose. Do not refactor unrelated conditions. Remove a catch-all such as `if all values are valid` only when path resolution and precise declared policies replace it; never silently remove material validation. Normalize user binding wording in a pending preview only when role and context yield one meaning; otherwise ask before deriving it.
 
 Preserve the model's concept-binding semantics in every candidate patch. Require uppercase-initial path segments and exact capitalization for application-concept references in unquoted `D`. When `P` is recognized as a binding of concept `T`, interpret and validate any changed clear constituent as the corresponding `T.X` and `P.X` inference; do not turn a source, condition, qualifier, or ordinary dependency into a constituent. Apply `T`-rooted standing definitions to corresponding `P`-rooted paths, and never introduce a conflicting explicit definition. Binding `P` as `T` does not itself persist it or add it to `all persisted T`; preserve an explicit persistence target and its contract bridge when membership depends on successful persistence.
+
+After deriving any candidate patch, rebuild the path inventory and include every newly required framework-profile bare entry in that same preview. These declaration-only additions are mechanical consequences of the proposed semantics, not separate business behavior; they create no context change or environment-contract row by themselves.
 
 Treat standing eligibility over mutable shared state as observational. If the invariant must still hold when persistence or another effect succeeds, keep the policy visible in AOD-YAML and require atomic enforcement and conflict non-attainment in the affected Environment Contract row.
 
@@ -129,7 +141,7 @@ The preview is a proposed patch, not an applied change. Keep it stable while the
 
 ## One-Item Dialog
 
-Present exactly one active unresolved material item per turn and no second independent question, choice, or check-in. A follow-up question keeps that item active; answer it, update the analysis and recommendation when needed, and restate the same item as the sole pending decision. Silence, a follow-up, or a noncommittal acknowledgment is not acceptance.
+Present exactly one active unresolved item per turn and no second independent question, choice, or check-in. A follow-up question keeps that item active; answer it, update the analysis and recommendation when needed, and restate the same item as the sole pending decision. Silence, a follow-up, or a noncommittal acknowledgment is not acceptance.
 
 Present an unresolved item exactly in this form:
 
@@ -171,7 +183,7 @@ The displayed reply sentence is literal and mandatory. It must be the final line
 
 Replace an unaffected artifact section with `No change.` Use an exact semantic-item context `diff` instead of the field table for changes outside an Environment Contract row. Omit neither artifact effect when both files change. Do not substitute another preview layout for the prescribed AOD-YAML or Environment Contract representation.
 
-Use `User proposal` instead of `Reviewer proposal` when the unresolved matter originated with the user.
+Use `User proposal` instead of `Reviewer proposal` when the unresolved matter originated with the user. Use `Framework conformance proposal` only for the mandatory explicit-declaration normalization above.
 
 Interpret the standardized replies case-insensitively, ignoring surrounding whitespace:
 
@@ -183,6 +195,8 @@ Interpret the standardized replies case-insensitively, ignoring surrounding whit
 - `Discard all` immediately abandons the entire review session under `Discarding the Review` below.
 - `Finish` ends the review, applies the `Defer` behavior to an active unresolved item, discards every unpresented backlog idea, and proceeds to finalization.
 
+The framework-conformance proposal overrides the ordinary `Reject`, `Defer`, and `Finish` effects as specified under `Framework-Conformance Normalization`.
+
 Equivalent explicit natural-language answers remain valid for nonterminal decisions. Stage termination requires the standalone control `Finish` or `Discard all`; do not infer it from silence, an empty backlog, a request for files, or conversational closure.
 
 ## Accepting a Deferred Proposal
@@ -192,9 +206,9 @@ Interpret `Accept deferred BR-nnn` case-insensitively, ignoring surrounding whit
 For an eligible deferred BR:
 
 1. If another item is active, mark it `paused`; the recalled BR becomes the sole item being handled.
-2. Recover the deferred BR's last exact displayed semantic patch and its matching `Deferred/unspecified:` remark. Revalidate the interpretation, affected semantic items, full before-values, dependencies, and lint consequences against the current working drafts.
+2. Recover the deferred BR's last exact displayed semantic patch and its matching `Deferred/unspecified:` remark. Revalidate the interpretation, affected semantic items, full before-values, dependencies, path inventory, framework-profile conformance, and lint consequences against the current working drafts.
 3. If the semantic patch remains applicable unchanged, apply it directly as the explicit acceptance of the previously previewed proposal. Changes only to hunk coordinates or mechanical revision and digest consequences do not make the semantic patch different. Remove exactly the matching deferral remark when present, mark the same BR `applied`, run the complete draft-package lint, report the applied artifact effects and normal applied-decision status, and re-evaluate any paused item and reviewer backlog. Do not allocate another BR identifier.
-4. If any declaration, contract responsibility, success condition, assumption, exclusion, rationale, or other semantic artifact effect must differ from the deferred preview, apply nothing. Retain the same BR identifier, regenerate the complete proposal and exact preview against the current drafts, include removal of its matching deferral remark in that candidate patch, mark it `pending`, and require a later standalone `Accept`.
+4. If any declaration, framework-required bare entry, contract responsibility, success condition, assumption, exclusion, rationale, or other artifact effect must differ from the deferred preview, apply nothing. Retain the same BR identifier, regenerate the complete proposal and exact preview against the current drafts, include removal of its matching deferral remark in that candidate patch, mark it `pending`, and require a later standalone `Accept`.
 5. If the proposal is no longer coherent, material, or compatible with accepted package behavior, apply nothing, mark it `superseded`, explain why it cannot be accepted, and re-evaluate any paused item and reviewer backlog.
 
 If the named identifier was never issued in the current task, state that it was not issued. If it exists but its latest status is not `deferred`, state its actual status. In either case, fail closed: do not infer another proposal, allocate an identifier, mutate drafts or canonical files, remove a residual concern, or run lint. List the currently eligible deferred BR identifiers, or `None`. Preserve and restate any active pending item unchanged; if none exists, show the prescribed open-review state.
@@ -242,7 +256,7 @@ Only mechanical wording, comment, or formatting corrections required to realize 
 For every applied decision:
 
 1. Immediately apply exactly the displayed semantic patch to the working drafts. Do not postpone accepted changes until the end of the dialog.
-2. Preserve AOD compactness, controlled implicit declarations, concept bindings, concept-rooted and binding-relative constituent paths, instantiated standing definitions, stable identities and bindings, explicit causal capability use, progress, and termination.
+2. Preserve AOD compactness and the semantics of concept bindings, concept-rooted and binding-relative constituent paths, instantiated standing definitions, stable identities and bindings, explicit causal capability use, progress, and termination while ensuring that every inferred or assumed path has an explicit entry under the framework profile.
 3. Update every affected context responsibility, success condition, design decision, assumption, exclusion, or residual concern.
 4. Preserve an existing `ENV-nnn` identifier while its responsibility remains materially the same. Assign the next unused identifier to a new responsibility; never renumber or reuse identifiers merely to close a gap.
 5. Compute the draft AOD digest in memory and rerun the complete package lint procedure against both drafts.
@@ -260,6 +274,7 @@ When a paused item becomes relevant again, retain its identifier, update its int
 Use the existing context structure exactly as defined by `aod_context_format.md`; do not add a review-log section.
 
 - Record compact rationale for material accepted application-specific changes under `Design Decisions`. Do not record AOD model semantics, profile or lint consequences, editorial conventions, or package mechanics. If a rationale mixes an application policy with framework mechanics, retain only the application policy. Treat `Decisions After Linting` as a deprecated legacy heading in an existing context and rename it when that context is otherwise intentionally revised.
+- Never record framework-required bare-entry normalization in `Design Decisions`, `Assumptions`, `Residual Concerns`, or the Environment Contract.
 - Record a materially important rejected inference as `Deliberately excluded: ...` under `Residual Concerns` when downstream generators might otherwise infer it.
 - Record a material unresolved item as `Deferred/unspecified: ...` under `Residual Concerns`.
 - Update `Assumptions` only for an explicit retained interpretation, not for a reviewer idea that the user has not accepted.
@@ -283,12 +298,13 @@ Interpret the standalone response `Discard all` case-insensitively at any dialog
 Finalize only after the standalone response `Finish`. A standalone `Discard all` follows `Discarding the Review` instead. Do not finalize automatically or merely because the user requests files.
 
 1. Run a final full AOD and context review under all governing sources.
-2. If neither working draft changed, do not rewrite either file and preserve package revision and digest.
-3. If either file changed, preserve the package ID and increment the package revision exactly once for this completed review session in the context draft.
-4. Write the final AOD-YAML first using its existing canonical filename.
-5. Compute its exact-byte SHA-256 digest and write that digest, the final revision, and the exact AOD filename into the final context.
-6. Write the context with its existing canonical filename.
-7. Run the complete package-mode lint procedure against the exact final bytes. Correct only mechanical defects; stop if correction would require an unapproved material decision.
+2. Rebuild the complete path inventory and require every inferred or assumed path to occur in an AOD entry. If any `PROF001` warning remains, do not finalize; keep or present the mandatory framework-conformance proposal.
+3. If neither working draft changed, do not rewrite either file and preserve package revision and digest.
+4. If either file changed, preserve the package ID and increment the package revision exactly once for this completed review session in the context draft.
+5. Write the final AOD-YAML first using its existing canonical filename.
+6. Compute its exact-byte SHA-256 digest and write that digest, the final revision, and the exact AOD filename into the final context.
+7. Write the context with its existing canonical filename.
+8. Run the complete package-mode lint procedure against the exact final bytes. Correct only mechanical defects; stop if correction would require an unapproved material decision.
 
 Do not create a separate decision-log file. A pre-existing implementation profile or generated program pinned to the old package revision becomes stale and must be refreshed or regenerated through the normal workflow.
 

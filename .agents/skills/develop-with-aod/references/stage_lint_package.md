@@ -9,11 +9,14 @@ The user will provide one `*.aod.yaml` specification and may also provide its co
 Use these bundled references in this order:
 
 1. `aod_yaml_model_summary.md` governs AOD model and AOD-YAML syntax and semantics.
-2. `aod_context_format.md` governs the companion context and environment-contract format.
-3. `aod_yaml_lint_rules.md` governs lint procedure, checks, severities, and required analysis data.
-4. `stage_lint_package.md` governs the standalone report and file output.
+2. `aod_framework_package_profile.md` governs stricter explicit-path conformance for framework packages.
+3. `aod_context_format.md` governs the companion context and environment-contract format.
+4. `aod_yaml_lint_rules.md` governs lint procedure, checks, severities, and required analysis data.
+5. `stage_lint_package.md` governs the standalone report and file output.
 
 Read every governing file completely and apply all applicable requirements. Do not reinterpret or duplicate their rules. If they materially conflict, report the conflict and follow the higher authority above.
+
+Linting remains nonmutating. Report every model-valid path that lacks the bare entry required by the framework profile as `PROF001`, with the exact `- P` addition and suggested group; never add it silently or demand a duplicate for a path already explicit as a trigger or target.
 
 If no companion context is supplied, perform an AOD-only lint. Do not report the absent context as a finding unless the calling prompt explicitly requires validation of a complete AOD package.
 

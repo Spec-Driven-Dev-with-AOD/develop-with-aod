@@ -9,9 +9,10 @@ Transform the user's natural-language application intent into one compact, valid
 Apply these bundled references in order:
 
 1. `aod_yaml_model_summary.md`: AOD model and AOD-YAML syntax and semantics.
-2. `aod_context_format.md`: companion context and environment-contract format.
-3. `aod_yaml_lint_rules.md`: lint procedure, checks, severities, and required analysis.
-4. `stage_create_package.md`: this generation workflow, design guidance, artifacts, and response.
+2. `aod_framework_package_profile.md`: stricter explicit-path authoring requirements for framework packages.
+3. `aod_context_format.md`: companion context and environment-contract format.
+4. `aod_yaml_lint_rules.md`: lint procedure, checks, severities, and required analysis.
+5. `stage_create_package.md`: this generation workflow, design guidance, artifacts, and response.
 
 Read every file completely. Do not reinterpret or duplicate its rules.
 
@@ -27,7 +28,7 @@ Establish the package name without asking solely for naming when the application
 
 ### 2. Create a Compact Intermediate AOD-YAML
 
-Create a temporary intermediate specification under the complete model summary. Use controlled implicit declarations deliberately: omit redundant bare or prefix declarations for clearly sourced paths referenced in `D`, separate declarations for reaction contexts whose actual observation or attainment source remains identifiable, clear concept-rooted and binding-relative constituents and projections, and availability declarations for capability outcomes already used as targets. Never use implicitness to hide an unclear identity, binding, value source, capability, or stopping condition.
+Create a temporary intermediate specification under the complete model summary. First derive controlled implicit declarations, concept-rooted and binding-relative constituents, prefixes, projections, and capability uses accurately. Then apply `aod_framework_package_profile.md`: every inferred or assumed path that is absent from all four AOD entry forms receives exactly one bare given-context entry. Do not add another bare entry for a path already explicit as a given entry, triggering path, or reaction target. Never invent a path to avoid clarifying an unclear identity, binding, value source, capability, or stopping condition.
 
 Add a moderate number of concise standalone YAML comment lines beginning with `#`, comparable to the task-reminder example. Use them only as editorial labels for major local concerns or to summarize a non-obvious declaration whose meaning is already fully expressed by non-comment content. Do not generate new inline comments. When revising existing AOD-YAML, preserve both standalone and inline comments and their association with adjacent entries unless an accepted change explicitly modifies or removes them. Never derive AOD behavior or environment-contract meaning from comment text. Do not comment every entry or place rationale, assumptions, lint discussion, or environment-contract prose in AOD-YAML.
 
@@ -39,18 +40,18 @@ Apply every AOD-only check in `aod_yaml_lint_rules.md` and retain the full lint 
 
 - Fix all genuine YAML, grammar, conflict, or incoherent-behavior errors.
 - Fix unclear essential values or target bindings, mistaken standing initialization, wrong effect semantics, dependencies on target order, and cycles without credible progress or termination.
-- Preserve clear implicit declarations, concept bindings, concept-rooted and binding-relative constituents, instantiated standing definitions, prefixes, projections, and write-through relations; do not expand the specification merely to shorten the inference inventory.
+- Preserve the semantics of every justified inferred path, concept binding, concept-rooted and binding-relative constituent, instantiated standing definition, prefix, projection, and write-through relation while adding the bare entries required by the framework profile. Treat those entries as declaration-only and nonbehavioral.
 - Distinguish data required to determine a target from a causal prerequisite requiring successful attainment. Express only the latter through a declared follow-on reaction context.
 - Preserve repeated attainment and accepted observations even when values repeat. Do not introduce change-only triggering or replay deduplication unless the user's intent requires it. When application behavior must be triggered by startup, declare a startup occurrence in AOD-YAML and place the required targets in its reaction context; never represent that behavior through initial standing resolution or an environment-only root target attempt. Otherwise do not introduce startup activation.
 - Do not add detached capability declarations, avoidable helper paths, speculative status flags, or reliability machinery merely to eliminate a warning.
 - Retain a nonessential operational warning, such as absent idempotency or retry policy, when the requested logical behavior remains coherent. Record it later as a residual concern.
 - Add an operational guarantee only when user-stated or essential to the stated purpose; never promote a recommendation into an assumed capability.
 
-Useful triage defaults are: make an empty-set singleton binding explicitly partial with `if any`; preserve an implicitly declared reaction context; preserve a clear bound write-through projection; and clarify a name-inferred capability through causal use and the environment contract rather than a redundant bare declaration.
+Useful triage defaults are: make an empty-set singleton binding explicitly partial with `if any`; retain a reaction context or target as the existing explicit entry for its path rather than adding a duplicate bare entry; preserve a clear bound write-through projection while declaring any otherwise absent projection paths; and clarify a name-inferred capability through causal use and the environment contract rather than duplicating a capability path already explicit as a target.
 
 ### 4. Finalize and Re-Lint the Specification
 
-Apply only necessary or useful compact changes, then rerun all AOD-only checks. Continue until there are no errors and no warning that makes the behavior incoherent or materially different from the user's intent. Confirm that concrete updates have clear bindings, reaction-capable paths have identifiable observation or attainment sources, causal dependencies use follow-on contexts, capability uses are explicit on every causal path, declarations determine one semantic result without ambiguous self-reference, and every cycle has progress and termination.
+Apply only necessary or useful compact changes, then rerun all AOD-only checks. Continue until there are no errors, no unresolved framework-profile explicit-path warning, and no other warning that makes the behavior incoherent or materially different from the user's intent. Confirm that every inferred or assumed path has one explicit entry, concrete updates have clear bindings, reaction-capable paths have identifiable observation or attainment sources, causal dependencies use follow-on contexts, capability uses are explicit on every causal path, declarations determine one semantic result without ambiguous self-reference, and every cycle has progress and termination.
 
 Parse the final file again as YAML. It must contain only the AOD-YAML specification and moderate local comments. The intermediate file and lint result are not deliverables.
 
@@ -67,6 +68,7 @@ Apply every package check in `aod_yaml_lint_rules.md`. Continue until package st
 Use these patterns when they fit; do not force them into every specification.
 
 - Choose groups by cohesive reading concern, not line count. When revising an existing package, preserve group names, order, and declaration placement by default; split only one group that has accumulated distinct concerns, replace it locally with two cohesive groups, and leave every unaffected group unchanged.
+- Maintain one explicit-entry inventory for the complete document. Add one bare given-context entry for every justified path that otherwise appears only by reference, prefix inference, concept binding, constituent inference, projection, or another semantic assumption. Place it near its first use without duplicating paths already explicit in another entry form.
 - Model observable state, standing derivations, bindings, occurrences, reactions, and effects rather than screens, schemas, or generic CRUD.
 - Use stable semantic names such as `User.Current`, `TaskList.VisibleItems`, `TaskItem.Task`, and `ReminderMail.Sent`. Prefer role-specific targets such as `DecisionToRecord` when repeating a concept name would resemble self-reference.
 - Treat a bare path in the given context as a declaration only. Infer whether it must be resolved, observed, or attained from its uses and cover only genuinely environment-provided support in the contract. Treat every reaction entry as an attempt whose follow-ons run only after successful attainment. Do not create trigger or initialization scaffolding around standing definitions.
@@ -95,6 +97,12 @@ Use these patterns when they fit; do not force them into every specification.
 Compact binding and write-through example:
 
 ```yaml
+- Task
+- Task.Completed
+- TaskList
+- TaskList.VisibleItems
+- TaskItem
+- TaskItem.CompleteButton
 - TaskItem.Task: arbitrary Task from TaskList.VisibleItems
 - TaskItem.CompleteButton.Clicked:
     - TaskItem.Task.Completed: true
@@ -103,6 +111,18 @@ Compact binding and write-through example:
 Compact creation and persistence example:
 
 ```yaml
+- CreateButton
+- User
+- User.Current
+- Input
+- Input.Title
+- Task
+- Task.Owner
+- Task.Title
+- Task.Completed
+- NewTask.Owner
+- NewTask.Title
+- NewTask.Completed
 - CreateButton.Clicked:
     - NewTask: new Task with owner User.Current, title Input.Title, and completed false
 - NewTask:

@@ -6,6 +6,8 @@
 
 AOD describes application behavior as compact declarations over paths. An AOD-YAML specification is an inspectable behavioral intermediate representation between natural-language intent and generated application artifacts. It expresses path declarations, standing definitions, reaction contexts, attainment targets, bindings, and environment capabilities without prescribing imperative implementation steps.
 
+This file describes the AOD model. The bundled framework package profile may require explicit bare entries for paths that the model would permit to remain implicitly declared; those additional entries do not change their AOD semantics.
+
 ## AOD Package and Environment Contract
 
 An implementation-ready, platform-independent AOD package consists of a `*.aod.yaml` specification and its companion `*.aod-context.md` file. The current AOD profile identifier is `aod-yaml/v1`. The `*.aod.yaml` specification is authoritative for application behavior. The `*.aod-context.md` file records key design decisions, assumptions, residual concerns, and an environment contract; `aod_context_format.md` defines its exact structure.
