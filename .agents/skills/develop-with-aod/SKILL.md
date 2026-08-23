@@ -119,13 +119,12 @@ artifact, and is permitted in addition to every stage-specific response.
 
 ## Load The Stage Bundle
 
-Before loading references, ask directly for one missing stage input and stop.
-Once required input is available, read every listed file completely before
-executing the stage. Resolve paths relative to this `SKILL.md`. Read files
-separately, using bounded sections for a long file; never concatenate the bundle
-into one command output. Keep routine loading internal. Do not mention commands,
-loading, output limits, truncation, or rereading. If a progress update is
-required, say only `Preparing <stage>.`.
+Ask directly for one missing stage input before loading references, then stop.
+Once input is available, read each listed file completely before executing the
+stage, resolving paths relative to this `SKILL.md`. Read files separately or in
+bounded sections; never concatenate bundle output. Keep loading internal: do not
+mention commands, limits, truncation, or rereading. If an update is required,
+say only `Preparing <stage>.`.
 
 ### `create-package`
 

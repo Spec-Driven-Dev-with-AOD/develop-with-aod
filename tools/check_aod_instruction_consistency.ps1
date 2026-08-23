@@ -67,7 +67,7 @@ $sets = [ordered]@{
 }
 
 $budgets = @{
-    'spec-generation' = 90000
+    'spec-generation' = 92000
     'package-review' = 118000
     'linting' = 84000
     'logical-preview' = 70000
@@ -252,8 +252,8 @@ $requiredTaskPhrases = @{
         'records only material application-specific choices',
         'occurrence-versus-startup semantics',
         'assumption recording the smallest coherent interpretation needed to represent stated behavior',
-        'An authoring assumption must not introduce optional functionality absent from the user''s intent',
-        'Absence of unrequested functionality needs no assumption or residual concern by default',
+        'An authoring assumption must not introduce optional functionality, including an unrequested lifecycle or stopping rule',
+        'Absence of unrequested functionality, including a lifecycle or stopping rule, needs no assumption or residual concern by default',
         'directly required or explicitly confirmed by the user',
         '`Authoring assumption:`',
         'Contract assumption for `ENV-nnn`',
@@ -302,7 +302,8 @@ $requiredTaskPhrases = @{
         'every `generator-assumed` basis names a distinct additional contract claim',
         'every material AOD behavior is traceable',
         'each authoring assumption is necessary for the smallest coherent interpretation of stated behavior',
-        'absence of commonplace or directly adjacent functionality not requested by the user is not a coverage defect',
+        'adds no unrequested user action, state transition, data item, external effect, lifecycle or stopping rule, or business policy',
+        'absence of optional functionality or a nonblocking lifecycle or stopping condition is not a coverage defect',
         '`Design Decisions` and `Assumptions` are semantically disjoint',
         'every material authoring assumption identifies the AOD behavior',
         'separable contract claims with different bases use separate rows',
@@ -487,10 +488,14 @@ $requiredTaskPhrases = @{
         'private authority ledger',
         'Material choice | Authority | AOD reference | Context placement | Question required',
         'exactly one concise question per turn',
-        'when explicitly requested behavior has materially different plausible interpretations',
-        'Never use a Stage 1 question to propose commonplace, useful, or directly adjacent functionality absent from the request',
-        'a domain convention or common lifecycle operation is not explicit intent',
-        'Stage 2 may later offer it as an optional scope extension',
+        'apply a scope-delta test to its proposed answers',
+        'Every answer must resolve the stated behavior without adding an unrequested user action, state transition, data item, external effect, lifecycle or stopping rule, or business policy',
+        'let closed scope prevail',
+        'A domain convention or common lifecycle operation is not explicit intent',
+        'An unspecified lifecycle or stopping condition is nonblocking',
+        'repeated behavior then continues while its explicitly stated eligibility condition remains true',
+        'Stage 2 may later propose the extension',
+        'An absent optional lifecycle or stopping condition is not such an ambiguity',
         'every material user requirement maps to AOD content',
         'every material AOD behavior maps to user-stated or user-confirmed intent or exactly one necessary authoring assumption',
         'no optional extension has entered through a Stage 1 question or assumption',
@@ -684,7 +689,8 @@ $requiredTaskPhrases = @{
         'every inferred or assumed path also appears exactly once in an AOD entry',
         'Such an entry adds no behavior',
         'Stage 1 asks a follow-up question only when explicitly requested behavior cannot otherwise be represented by a coherent closed-scope package',
-        'absent functionality stays outside the initial package',
+        'no proposed answer would add an unrequested action, state transition, data item, effect, lifecycle or stopping rule, or business policy',
+        'Missing optional functionality or a nonblocking stopping condition stays outside the initial package',
         'one nonbehavioral framework-conformance proposal',
         'must be accepted before Stage 2 can finalize',
         'a `PROF001` warning identifies a model-valid path',
@@ -871,16 +877,16 @@ if (Test-Path -LiteralPath $skillFile -PathType Leaf) {
     if (-not $skillText.Contains('ask only for the stage')) {
         $errors.Add('SKILL.md does not enforce a stage-only menu turn')
     }
-    if (-not $skillText.Contains('Before loading references, ask directly for one missing stage input and stop')) {
+    if (-not $skillText.Contains('Ask directly for one missing stage input before loading references, then stop')) {
         $errors.Add('SKILL.md does not request missing stage input before loading references')
     }
-    if ($skillText -notmatch 'Read files\s+separately, using bounded sections for a long file') {
+    if ($skillText -notmatch 'Read files separately or in\s+bounded sections') {
         $errors.Add('SKILL.md does not require bounded per-file reference loading')
     }
-    if ($skillText -notmatch 'never concatenate the bundle\s+into one command output') {
+    if (-not $skillText.Contains('never concatenate bundle output')) {
         $errors.Add('SKILL.md does not prohibit truncation-prone combined bundle reads')
     }
-    if ($skillText -notmatch 'Do not mention commands,\s+loading, output limits, truncation, or rereading') {
+    if ($skillText -notmatch 'Keep loading internal: do not\s+mention commands, limits, truncation, or rereading') {
         $errors.Add('SKILL.md does not keep routine reference loading out of the user dialog')
     }
     if (-not $skillText.Contains('Never ask the user to attach a bundled framework reference')) {
