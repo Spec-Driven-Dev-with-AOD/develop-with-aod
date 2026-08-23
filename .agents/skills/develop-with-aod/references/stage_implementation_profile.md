@@ -26,7 +26,7 @@ Before technology questions:
 
 1. Validate package identity, UUID, revision, profile/format identifiers, filenames, required context structure, unique `ENV-nnn` IDs, and exact AOD digest.
 2. Derive the canonical slug from the shared filename stem and reject mismatches.
-3. Build the complete behavioral view: actors and authorization; context-sensitive ownership, partition, capture, lifetime and isolation; bindings; entities, creation, persistence and write-through; standing inputs; observation and attainment sources; declared startup occurrences and replay; reaction-invocation scopes; effects; cycles; runtime presence; and persistence acknowledgments.
+3. Build the complete behavioral view: actors and authorization; context-sensitive ownership, partition, capture, lifetime and isolation; application concepts and role-specific bindings; concept-rooted and binding-relative constituents; instantiated standing definitions; entities, creation, persistence and write-through; standing inputs; observation and attainment sources; declared startup occurrences and replay; reaction-invocation scopes; effects; cycles; runtime presence; and persistence acknowledgments.
 4. Cross-check dependencies and contract items bidirectionally. Capability outcomes trace to AOD targets or causal paths; technical support may remain contract-only; success conditions fit dependent reactions.
 
 If materially different scope interpretations would change behavior and the package does not determine the intended boundary, request package correction before technology questions. Do not resolve behavioral scope as an implementation-profile choice.

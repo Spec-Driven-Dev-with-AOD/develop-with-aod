@@ -47,7 +47,7 @@ Use this structure:
 - Recommendation: <smallest useful correction or clarification>
 
 ## Inferred Declarations and Capabilities
-| Path | Use or location | Inference basis | Confidence |
+| Path or relation | Use or location | Inference basis | Confidence |
 | --- | --- | --- | --- |
 
 ## Package Integrity
@@ -63,7 +63,7 @@ Use this structure:
 <only material uncertainties or validation limitations>
 ```
 
-For an inferred environment capability, include every direct target use and its requiring reaction context in `Use or location`, not only the first occurrence. Omit empty detail sections or state `None`. Quote only the smallest relevant YAML fragment.
+Include inferred referenced paths and prefixes, concept bindings, concept-rooted and binding-relative constituent paths, instantiated standing definitions, projections, semantic bridges, and environment capabilities. For an inferred environment capability, include every direct target use and its requiring reaction context in `Use or location`, not only the first occurrence. Omit empty detail sections or state `None`. Quote only the smallest relevant YAML fragment.
 
 Sort findings as required by the lint rules. Use stable category prefixes such as `YAML`, `AOD`, `SEM`, `CTX`, and `ENV`, followed by a three-digit number.
 

@@ -93,6 +93,8 @@ Create one stable `ENV-nnn` item for every material environment responsibility i
 
 Do not create contract items for purely internal standing calculations or ordinary AOD syntax that need no environment support. Do not convert an optional operational improvement into a provided guarantee.
 
+A recognized concept binding, an implicitly declared concept-rooted or binding-relative constituent, and a standing definition instantiated through that binding are AOD semantics and do not by themselves require separate contract rows. Add contract coverage only for environment support that their resolution, observation, attainment, persistence, or identity bridge actually requires. In particular, binding `P` as concept `T` does not establish persisted-set membership; when an explicit persistence target must place `P` in `all persisted T`, its contract row must preserve the bound value's identity and constituents and make that same value a member of the persisted collection.
+
 The contract table may contain no data rows only when the final AOD-YAML and stated user requirements genuinely imply no material environment responsibility.
 
 Every material environment dependency in the AOD-YAML must be covered by an `ENV-nnn` item, and every `ENV-nnn` item must be traceable to the AOD-YAML or a clearly identified user requirement. An item may cite several AOD references only when they share the same responsibility, success condition, and provisioning boundary.

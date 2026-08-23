@@ -5,7 +5,7 @@ development using
 [Attainment-Oriented Declarations (AOD)](.agents/skills/develop-with-aod/references/aod_yaml_model_summary.md).
 It guides an application from natural-language intent through an inspectable
 AOD package, review, linting, logical preview, implementation profiling, and
-verified program generation.
+verified program generation. The approach is considered suitable for citizen developers.
 
 The skill currently uses **Interpretive AOD**. AOD declarations may contain
 controlled natural language, so linting and generation can still require model

@@ -25,7 +25,7 @@ Before proposing anything:
 1. Parse the complete AOD-YAML under the model summary.
 2. Validate the context under `aod_context_format.md`, including package format, UUID, positive revision, profiles and formats, canonical filenames, required sections and contract columns, unique `ENV-nnn` identifiers, and the exact-byte AOD SHA-256 digest.
 3. Apply the complete package-mode procedure in `aod_yaml_lint_rules.md`.
-4. Build a compact internal view of actors, authorization, entities and state, bindings, standing definitions, occurrences, reactions, persistence, effects, environment responsibilities, assumptions, exclusions, and residual concerns.
+4. Build a compact internal view of actors, authorization, application concepts and role-specific bindings, concept-rooted and binding-relative constituents, instantiated standing definitions, entities and state, occurrences, reactions, persistence, effects, environment responsibilities, assumptions, exclusions, and residual concerns.
 
 Start the design dialog only when package integrity is valid and no lint error or material unresolved lint warning prevents reliable review. Otherwise stop with the blocking findings and direct the user to correct and lint the package first. Do not mix mandatory lint repair with optional business expansion.
 
@@ -102,6 +102,8 @@ Derive the smallest coherent candidate patch before presenting it. When a new ou
 For a material context-sensitive scope ambiguity, place the behaviorally significant ownership or partition boundary in AOD-YAML and place only environment-provided resolution, maintenance, capture, lifetime, and isolation responsibilities in the affected contract row. Do not propose explicit scope wording when the current package already determines the boundary unambiguously.
 
 Interpret the smallest coherent patch by semantic compactness, not minimum line or declaration count. Give an independently meaningful policy a named standing definition when it may be reviewed, changed, tested, or reused separately, or when inline wording would obscure its declaration; reference it from `D`. Keep a simple one-off qualifier inline and never add a path merely to shorten prose. Do not refactor unrelated conditions. Remove a catch-all such as `if all values are valid` only when path resolution and precise declared policies replace it; never silently remove material validation. Normalize user binding wording in a pending preview only when role and context yield one meaning; otherwise ask before deriving it.
+
+Preserve the model's concept-binding semantics in every candidate patch. Require uppercase-initial path segments and exact capitalization for application-concept references in unquoted `D`. When `P` is recognized as a binding of concept `T`, interpret and validate any changed clear constituent as the corresponding `T.X` and `P.X` inference; do not turn a source, condition, qualifier, or ordinary dependency into a constituent. Apply `T`-rooted standing definitions to corresponding `P`-rooted paths, and never introduce a conflicting explicit definition. Binding `P` as `T` does not itself persist it or add it to `all persisted T`; preserve an explicit persistence target and its contract bridge when membership depends on successful persistence.
 
 Treat standing eligibility over mutable shared state as observational. If the invariant must still hold when persistence or another effect succeeds, keep the policy visible in AOD-YAML and require atomic enforcement and conflict non-attainment in the affected Environment Contract row.
 
@@ -216,7 +218,7 @@ Classify the intervention before responding:
 - If it conflicts with the AOD model, package integrity, an earlier accepted decision, or another governing input, make the reconciliation the sole pending item and never silently override either side.
 - If it concerns implementation technology, deployment, visual styling, or provider selection rather than platform-independent behavior or environment responsibility, explain briefly that it belongs in the later implementation-profile or implementation-direction step and do not place it in the AOD package.
 
-Validate a supplied AOD fragment semantically rather than merging text blindly. Translate natural language into compact AOD-YAML only when the intended declaration, binding, and causality are clear. Place behavior in AOD-YAML; place rationale, environment responsibilities, assumptions, exclusions, and residual concerns in the context. Change both when required.
+Validate a supplied AOD fragment semantically rather than merging text blindly. Translate natural language into compact AOD-YAML only when the intended declaration, concept binding, inferred constituent paths, and causality are clear. Preserve clear equivalent binding wording, but normalize an unambiguous proposal to the canonical capitalized concept vocabulary where useful. Place behavior in AOD-YAML; place rationale, environment responsibilities, assumptions, exclusions, and residual concerns in the context. Change both when required.
 
 For `Accept`, report that the displayed patch was applied exactly. For `Revise: ...`, show the regenerated preview and wait for a subsequent decision. `Reject` applies no package patch. For `Defer`, show only the exact new `Residual Concerns` remark; never describe the recommended patch as applied.
 
@@ -240,7 +242,7 @@ Only mechanical wording, comment, or formatting corrections required to realize 
 For every applied decision:
 
 1. Immediately apply exactly the displayed semantic patch to the working drafts. Do not postpone accepted changes until the end of the dialog.
-2. Preserve AOD compactness, controlled implicit declarations, stable identities and bindings, explicit causal capability use, progress, and termination.
+2. Preserve AOD compactness, controlled implicit declarations, concept bindings, concept-rooted and binding-relative constituent paths, instantiated standing definitions, stable identities and bindings, explicit causal capability use, progress, and termination.
 3. Update every affected context responsibility, success condition, design decision, assumption, exclusion, or residual concern.
 4. Preserve an existing `ENV-nnn` identifier while its responsibility remains materially the same. Assign the next unused identifier to a new responsibility; never renumber or reuse identifiers merely to close a gap.
 5. Compute the draft AOD digest in memory and rerun the complete package lint procedure against both drafts.

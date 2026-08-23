@@ -41,7 +41,7 @@ Complete this before writing project files.
 
 ### Behavioral and Environment Views
 
-Build a complete implementation view of actors and authorization; context-sensitive user, session, view, selection, row, and reaction-invocation ownership, partition, capture, lifetime and isolation; current, selected, and row bindings; entities and state; creation, drafts, persistence, write-through, and persisted queries; standing dependencies; observation and attainment sources; accepted valued observations; declared startup occurrences and replay behavior; reaction invocations and causality; structured bindings; cycles, progress, and termination; and effects.
+Build a complete implementation view of actors and authorization; context-sensitive user, session, view, selection, row, and reaction-invocation ownership, partition, capture, lifetime and isolation; application concepts and role-specific current, selected, new, and row bindings; concept-rooted and binding-relative constituent paths; instantiated standing definitions; entities and state; creation, drafts, persistence, write-through, and persisted queries; standing dependencies; observation and attainment sources; accepted valued observations; declared startup occurrences and replay behavior; reaction invocations and causality; structured bindings; cycles, progress, and termination; and effects.
 
 Cross-check every material AOD environment dependency against the context and every contract item against an AOD reference or identified user requirement, including all causal uses of a shared capability. Stop if traceability or success semantics are materially incomplete or contradictory.
 
@@ -92,10 +92,10 @@ Compile directly from the complete model summary:
 - when a contextual target establishes a value or binding for a path `P`, use that invocation-local value throughout the reaction invocation and its causal descendants before resolving any same-path standing definition; do not replace the standing definition, and after those invocations end resolve `P` from it again unless the contextual attainment persisted or wrote through the value;
 - treat every accepted replay or redelivery as a new occurrence without silent deduplication, while keeping an adapter retry within one target attempt in the same logical attempt;
 - treat targets in one reaction context as unordered, resolve data dependencies during target attainment, and use only declared follow-on contexts for successful-attainment dependencies;
-- establish determined constituent paths in the same attainment as their structured valued binding;
+- for every recognized binding of `P` as concept `T`, establish determined binding-relative constituent `P.X` values in the same structured attainment, recognize corresponding concept-rooted `T.X` declarations without inventing standing definitions for them, and compile `T`-rooted standing definitions for corresponding `P`-rooted paths by root substitution, including `T`-rooted references inside `D`; reject an incompatible explicit `P`-rooted definition and never treat a source, condition, qualifier, or ordinary dependency as a constituent;
 - enter follow-on contexts only after actual attainment, leaving partial or failed targets unattained;
 - scope initialization to the created or bound instance and preserve write-through versus distinct persistence acknowledgment;
-- preserve stable current, selected, row, and semantic-bridge bindings under their declared ownership, partition, capture, lifetime, and isolation boundaries rather than globalizing transient bindings; and
+- preserve stable new, current, selected, row, concept, and semantic-bridge bindings under their declared ownership, partition, capture, lifetime, and isolation boundaries rather than globalizing transient bindings; do not treat a concept binding itself as persistence or persisted-set membership; and
 - never interpret controlled natural language as an imperative statement sequence or invent a material meaning.
 
 For a capability target, resolve required standing inputs on demand, attain it only under its contract success condition, and then run its follow-ons. A prior capability occurrence cannot satisfy a later attempt. On failure, leave it unattained unless explicit failure behavior exists. Support without a behavioral target remains infrastructure. Do not invent retry, idempotency, transaction, delivery, durability, or failure guarantees, and isolate explicitly permitted simulations from real adapters.
@@ -155,7 +155,7 @@ Generate one canonical operational path for first setup, normal start, update wh
 
 ### Implement and Test Behavior
 
-- Implement every relevant path, standing definition, binding, reaction, capability target, progress condition, and termination condition.
+- Implement every relevant explicit or inferred path, standing definition and its concept-binding instantiations, binding, reaction, capability target, progress condition, and termination condition.
 - Keep UI and persistence connected to one domain state; recompute standing definitions when dependencies change or on demand.
 - Preserve declared causal follow-ons and continue cycles only while progress and attainment remain possible.
 - Keep capability failure observable to diagnostics without falsely attaining its target.
@@ -165,7 +165,7 @@ Generate one canonical operational path for first setup, normal start, update wh
 
 When a frontend is part of the target, build the usable application as the first screen, bind row interactions to their represented entity, use task-appropriate controls, and follow the confirmed experience policy. Do not display AOD tutorials or contract prose as application content; visibly distinguish permitted simulations.
 
-Add risk-appropriate tests for standing definitions; repeated same-value attainment; separately accepted equal-valued observations; false-valued and other value-distinct reaction activation; explicit nonmatching non-attainment; operational startup resolution versus a declared startup occurrence; replay versus adapter retry; concurrent reaction-invocation isolation; cross-user, session, view, selection, and row partition isolation when material; primary reactions; non-attainment; causal ordering; persistence; capability success and failure; authorization; and every cycle's progress and termination. Keep material code and tests traceable to exact AOD paths and contract IDs. Test simulations separately from real adapters.
+Add risk-appropriate tests for standing definitions and their concept-binding instantiations; inferred concept-rooted and binding-relative constituents; repeated same-value attainment; separately accepted equal-valued observations; false-valued and other value-distinct reaction activation; explicit nonmatching non-attainment; operational startup resolution versus a declared startup occurrence; replay versus adapter retry; concurrent reaction-invocation isolation; cross-user, session, view, selection, and row partition isolation when material; primary reactions; non-attainment; causal ordering; persistence and persisted-set identity; capability success and failure; authorization; and every cycle's progress and termination. Keep material code and tests traceable to exact AOD paths and contract IDs. Test simulations separately from real adapters.
 
 ## AOD Implementation Traceability
 

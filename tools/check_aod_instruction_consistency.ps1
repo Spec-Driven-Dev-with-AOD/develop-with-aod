@@ -55,12 +55,12 @@ $sets = [ordered]@{
 }
 
 $budgets = @{
-    'spec-generation' = 75000
-    'package-review' = 92000
-    'linting' = 62000
-    'logical-preview' = 56000
-    'profile-dialog' = 89000
-    'program-generation' = 103000
+    'spec-generation' = 90000
+    'package-review' = 108000
+    'linting' = 73000
+    'logical-preview' = 65000
+    'profile-dialog' = 100000
+    'program-generation' = 118000
 }
 
 $invocationContracts = @{
@@ -165,19 +165,28 @@ $requiredHeadings = @{
 
 $requiredTaskPhrases = @{
     "$referencesRoot/aod_yaml_model_summary.md" = @(
+        'Path ::= UppercaseIdentifier',
+        'Each identifier segment must begin with an uppercase letter',
+        'declared without a standing definition',
+        'attempt to attain `P`',
         'Judge compactness semantically',
         'a unique interpretation cannot generally be proved',
-        'Tooling accepts clear equivalents',
+        'Tooling accepts clear equivalent formulations',
         'package writers normalize them and lint-only stages report them',
         'independently meaningful business rule',
         'Do not introduce a path merely to shorten prose',
-        'At the specification level',
-        'merely referencing a path as a source, condition, or dependency',
-        'At runtime, successful attainment of `P` establishes the constituent values',
-        'not later assignments or separate causal stages',
-        'same spelling and capitalization',
+        'concept-rooted path `T.X`',
+        'binding-relative path `P.X`',
+        'does not create a standing definition for `T.X`',
+        'A source, condition, qualifier, or ordinary dependency mentioned by `D` is not thereby a constituent',
+        'Successful attainment of `P` establishes the described value of `P.X`',
+        'neither path is a later assignment or separate causal stage',
+        'Lowercase `new task` is ordinary prose',
+        'new Task that is not completed',
+        'standing definition rooted at `T` applies to `P`',
         'does not itself produce, attain, or observe an occurrence',
-        '`persisted` is a collection-source qualifier and does not declare a path `Task.Persisted`',
+        'The phrase `all persisted Task` denotes a collection of persisted values of concept `Task`',
+        'Binding `NewTask` as `Task` does not itself persist `NewTask`',
         'Choose groups by cohesive reading concern',
         'preserve group names, order, and declaration placement by default',
         '`if all values are valid`',
@@ -189,7 +198,7 @@ $requiredTaskPhrases = @{
         'each target path `P` may occur at most once',
         'Equivalent repetitions are redundant and must be consolidated',
         'reaction-invocation scope begins when an occurrence activates a reaction context',
-        'every occurrence instance acts as an event',
+        'Every occurrence instance acts as an event',
         'Reaction activation is occurrence-based, not value-filtered',
         'Boolean helper successfully attained as `false`',
         'takes precedence over any standing definition of `P`',
@@ -213,7 +222,10 @@ $requiredTaskPhrases = @{
         'Do not use a generic placeholder',
         'startup occurrence declared in AOD-YAML',
         'resolution or maintenance context',
-        'standalone or inline nonbehavioral AOD comment'
+        'standalone or inline nonbehavioral AOD comment',
+        'A recognized concept binding',
+        'do not by themselves require separate contract rows',
+        'does not establish persisted-set membership'
     )
     "$referencesRoot/aod_yaml_lint_rules.md" = @(
         'deprecated alias for `Design Decisions`',
@@ -229,10 +241,17 @@ $requiredTaskPhrases = @{
         'smallest useful extraction into named standing definitions',
         'simple one-off conjunction',
         'Report an `INFO`, not a warning or error',
-        'distinguish target-relative constituent roles from source paths, condition paths, and ordinary dependencies',
-        'report the inference basis and confidence',
-        'matching spelling and capitalization',
-        'it does not declare `Task.Persisted`',
+        'uppercase-initial identifier matching AOD path syntax',
+        'lowercase `new task` is ordinary prose',
+        'concept-rooted path `T.X`',
+        'binding-relative path `P.X`',
+        'does not define `T.X`',
+        'root substitution',
+        'Do not infer from a bare given-context entry `P` alone',
+        'target attempt rather than guaranteed attainment',
+        'inference basis and confidence',
+        'it does not declare `Task.Persisted` and is not a constituent description',
+        'Binding `NewTask` as `Task` does not itself persist it',
         'neither produces nor observes the occurrence',
         'at most one local split into two cohesive groups',
         'uses a catch-all such as `if all values are valid`',
@@ -319,6 +338,10 @@ $requiredTaskPhrases = @{
         'Do not refactor unrelated conditions',
         'Remove a catch-all such as `if all values are valid`',
         'Normalize user binding wording in a pending preview only when role and context yield one meaning',
+        "Preserve the model's concept-binding semantics in every candidate patch",
+        'corresponding `T.X` and `P.X` inference',
+        'Apply `T`-rooted standing definitions to corresponding `P`-rooted paths',
+        'does not itself persist it or add it to `all persisted T`',
         'compare current and candidate drafts by semantic item',
         'Preserve unrelated declarations, contract rows, and context items verbatim and in place',
         'append without replacing neighbors',
@@ -410,10 +433,14 @@ $requiredTaskPhrases = @{
         'Choose groups by cohesive reading concern',
         'leave every unaffected group unchanged',
         'standing eligibility over mutable shared state as an observation',
-        'Phrase each intended constituent role and source clearly enough',
-        'do not treat a mere source, condition, or dependency reference as a constituent',
-        'same spelling and capitalization',
-        'it does not declare `Task.Persisted`',
+        'Phrase each constituent clearly enough to infer both `T.X`',
+        'does not define `T.X`',
+        'Do not treat a mere source, condition, qualifier, or dependency as a constituent',
+        'Begin every AOD path segment with an uppercase letter',
+        'Use recognized concept-binding formulations',
+        'target `P` then becomes its role-specific binding',
+        'apply every standing definition rooted at `T`',
+        'it does not declare `Task.Persisted`, describe a constituent, persist a concept binding, or add it to the collection',
         'Do not write catch-alls such as `if all values are valid`',
         'only material application-specific decisions traceable to user intent',
         'Do not record model semantics',
@@ -423,6 +450,12 @@ $requiredTaskPhrases = @{
         'Do not generate new inline comments',
         'preserve both standalone and inline comments',
         'Never derive AOD behavior or environment-contract meaning from comment text'
+    )
+    "$referencesRoot/stage_lint_package.md" = @(
+        '| Path or relation | Use or location | Inference basis | Confidence |',
+        'inferred referenced paths and prefixes',
+        'concept-rooted and binding-relative constituent paths',
+        'instantiated standing definitions'
     )
     "$referencesRoot/prompt_create_package.md" = @(
         'automatically derive a meaningful project name and slug',
@@ -455,6 +488,9 @@ $requiredTaskPhrases = @{
         '`Accept` records the decision only',
         'keep the unmet prerequisite open',
         'first pending decision after preflight must be `Project name`',
+        'application concepts and role-specific bindings',
+        'concept-rooted and binding-relative constituents',
+        'instantiated standing definitions',
         'derivation is a recommendation, not acceptance',
         'partial explicit choices, unsolicited future-topic choices, and a follow-up',
         'Do not announce an inferred choice as recorded',
@@ -536,6 +572,9 @@ $requiredTaskPhrases = @{
         'accepted replay or redelivery',
         'never compile a Boolean reaction context as implicitly true-only',
         'nonmatching case leaves its target unattained',
+        'recognized application concepts and role-specific bindings',
+        'concept-rooted and binding-relative constituent paths',
+        'apply `T`-rooted standing definitions to corresponding `P`-rooted paths by root substitution',
         '### Closed Scope',
         'AOD Technical Realization Decision TRD-nnn',
         'no-inference boundaries',
@@ -553,6 +592,10 @@ $requiredTaskPhrases = @{
         'accepted replay or redelivery',
         'never compile a Boolean reaction context as implicitly true-only',
         'false-valued and other value-distinct reaction activation',
+        'application concepts and role-specific current, selected, new, and row bindings',
+        'concept-rooted and binding-relative constituent paths',
+        'compile `T`-rooted standing definitions for corresponding `P`-rooted paths by root substitution',
+        'persistence and persisted-set identity',
         '### Closed-Scope Conformance',
         'bidirectional scope inventory',
         '## Technical Realization Decisions',
@@ -599,6 +642,13 @@ $requiredTaskPhrases = @{
         '### Apply the Experience Policy',
         'do not invent a brand',
         'pinned original resources under `aod/experience-resources/`'
+    )
+    "$referencesRoot/aod_traceability_format.md" = @(
+        'every explicit or inferred AOD path',
+        'recognized concept binding',
+        'binding-relative constituent',
+        'instantiated standing definition',
+        'name the inferred path or binding relation it implements'
     )
     "$referencesRoot/prompt_generate_program.md" = @(
         'closed-scope preflight',
