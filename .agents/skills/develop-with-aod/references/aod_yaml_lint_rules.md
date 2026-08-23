@@ -85,6 +85,8 @@ For every inventory path absent from all entry forms, report one framework-profi
 
 Treat explicit-declaration normalization as nonbehavioral package mechanics. It does not define or initialize a path, authorize behavior, require an environment-contract row, or belong in `Design Decisions`.
 
+For each coherent path family whose primary role is to hold transient values supplied directly by a user before an accepted interaction, check whether its role-specific root contains `Input`. When the role and complete rename are unambiguous but the root lacks `Input`, report nonblocking `STYLE001` `INFO` and give one exact atomic replacement for the root, every descendant, every determining-declaration reference, and every supplied context reference. Do not apply this convention to persisted domain paths, bindings, environment-provided values, or occurrence and control paths merely because they consume or originate from user input. Do not report `PROF001`, a warning, or an error for this naming convention, and never mutate the package in a lint-only stage.
+
 ### 4. Audit the Context in Package Mode
 
 Apply every rule in `aod_context_format.md` and verify:
@@ -107,7 +109,7 @@ Coverage and traceability are bidirectional. Report both an uncovered AOD depend
 
 ## Findings, Severity, and Status
 
-Use stable category IDs such as `YAML001`, `AOD001`, `SEM001`, `PROF001`, `CTX001`, and `ENV001`.
+Use stable category IDs such as `YAML001`, `AOD001`, `SEM001`, `PROF001`, `STYLE001`, `CTX001`, and `ENV001`.
 
 - `ERROR`: invalid YAML or AOD grammar; irreconcilable definitions; invalid required context structure or metadata; digest mismatch; duplicate contract ID; exposed secret; or another issue preventing coherent interpretation.
 - `WARNING`: an interpretable but incomplete, ambiguous, contradictory, or materially risky declaration, capability, trace, binding, initialization, causal relation, progress condition, success condition, or operational property; or a model-valid package that omits a bare entry required by the framework profile.

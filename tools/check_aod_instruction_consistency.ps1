@@ -67,9 +67,9 @@ $sets = [ordered]@{
 }
 
 $budgets = @{
-    'spec-generation' = 92000
-    'package-review' = 118000
-    'linting' = 84000
+    'spec-generation' = 95000
+    'package-review' = 122000
+    'linting' = 88000
     'logical-preview' = 70000
     'profile-dialog' = 107000
     'program-generation' = 120000
@@ -285,10 +285,16 @@ $requiredTaskPhrases = @{
         'For every inventory path absent from all entry forms, add exactly one bare given-context entry',
         'does not by itself require an environment-contract row',
         'clarify the interpretation first',
+        'naming convention for transient values supplied directly by a user',
+        'role-specific root containing `Input`',
+        'existing package remains valid AOD and framework-conforming',
         '`review-package` presents missing entries as one exact, nonbehavioral framework-conformance proposal',
+        'optional nonbehavioral proposal that atomically normalizes clearly identified input-family names and all references',
         '`lint-package` is nonmutating',
+        '`STYLE001` `INFO` with an exact atomic rename',
         '`logical-preview`, `implementation-profile`, and `generate-program` stop',
-        'not application behavior'
+        'not application behavior',
+        'A `STYLE001` naming item never blocks downstream stages'
     )
     "$referencesRoot/aod_yaml_lint_rules.md" = @(
         '`aod_framework_package_profile.md` is the sole authority',
@@ -298,6 +304,10 @@ $requiredTaskPhrases = @{
         'exact bare entry `- P` to add',
         'Do not warn for a path already explicit in another entry form',
         'nonbehavioral package mechanics',
+        'primary role is to hold transient values supplied directly by a user',
+        'report nonblocking `STYLE001` `INFO`',
+        'one exact atomic replacement for the root',
+        'Do not report `PROF001`, a warning, or an error for this naming convention',
         'deprecated alias for `Design Decisions`',
         'every `generator-assumed` basis names a distinct additional contract claim',
         'every material AOD behavior is traceable',
@@ -365,12 +375,19 @@ $requiredTaskPhrases = @{
     )
     "$referencesRoot/stage_review_package.md" = @(
         '## Framework-Conformance Normalization',
+        '## Optional Input-Naming Normalization',
         'Framework conformance proposal | Pending',
         'Include every missing path in one exact AOD-YAML patch',
         'Do not add a duplicate for a path already explicit',
         'stricter than the underlying AOD model',
         '`Reject`, `Defer`, or `Finish` applies nothing and leaves the same item pending',
         'Do not add a deferral remark for this mechanical item',
+        'at most one optional nonbehavioral naming proposal',
+        'Present it only after mandatory framework conformance and higher-priority material reviewer proposals',
+        'Rename each complete family atomically',
+        '`Defer` retains only its conversational deferred status and adds no context remark',
+        '`Finish` skips an active naming item and finalizes accepted changes',
+        'does not count toward the expected number of material reviewer proposals',
         'Never record framework-required bare-entry normalization',
         'If any `PROF001` warning remains, do not finalize',
         'at most one active unresolved item',
@@ -496,6 +513,7 @@ $requiredTaskPhrases = @{
         'repeated behavior then continues while its explicitly stated eligibility condition remains true',
         'Stage 2 may later propose the extension',
         'An absent optional lifecycle or stopping condition is not such an ambiguity',
+        'Give each coherent family of transient values supplied directly by a user a role-specific root containing `Input`',
         'every material user requirement maps to AOD content',
         'every material AOD behavior maps to user-stated or user-confirmed intent or exactly one necessary authoring assumption',
         'no optional extension has entered through a Stage 1 question or assumption',
@@ -515,6 +533,9 @@ $requiredTaskPhrases = @{
     "$referencesRoot/stage_lint_package.md" = @(
         'Report every model-valid path that lacks the bare entry required by the framework profile as `PROF001`',
         'never add it silently',
+        'nonblocking `STYLE001` information',
+        'exact atomic rename covering the complete family',
+        'never changes lint status from `PASS`',
         '| Path or relation | Use or location | Inference basis | Confidence |',
         'inferred referenced paths and prefixes',
         'concept-rooted and binding-relative constituent paths',
@@ -691,10 +712,14 @@ $requiredTaskPhrases = @{
         'Stage 1 asks a follow-up question only when explicitly requested behavior cannot otherwise be represented by a coherent closed-scope package',
         'no proposed answer would add an unrequested action, state transition, data item, effect, lifecycle or stopping rule, or business policy',
         'Missing optional functionality or a nonblocking stopping condition stays outside the initial package',
+        'transient family of values supplied directly by a user uses a role-specific root containing `Input`',
         'one nonbehavioral framework-conformance proposal',
         'must be accepted before Stage 2 can finalize',
+        'optional nonbehavioral proposal that renames the complete family and every reference atomically',
+        'Deferring this style-only item changes no package file or residual concern',
         'a `PROF001` warning identifies a model-valid path',
-        'Stages 4 through 6 stop rather than silently assume',
+        'nonblocking `STYLE001` information item',
+        'Stages 4 through 6 stop for `PROF001`, but not `STYLE001`',
         '## 2. Optionally Review the Business Design',
         '## 3. Lint the AOD Package',
         '## 4. Optionally Generate a Logical Preview',

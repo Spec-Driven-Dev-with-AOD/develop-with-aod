@@ -6,6 +6,8 @@ The user will provide one `*.aod.yaml` specification and may also provide its co
 
 Linting remains nonmutating. Report every model-valid path that lacks the bare entry required by the framework profile as `PROF001`, with the exact `- P` addition and suggested group; never add it silently or demand a duplicate for a path already explicit as a trigger or target.
 
+Report a clearly transient user-input family whose root lacks `Input` as nonblocking `STYLE001` information with one exact atomic rename covering the complete family and every AOD and supplied context reference. This naming convention is framework-only: it does not make the package invalid and never changes lint status from `PASS`.
+
 If no companion context is supplied, perform an AOD-only lint. Do not report the absent context as a finding unless the calling prompt explicitly requires validation of a complete AOD package.
 
 ## Lint Execution
@@ -56,6 +58,6 @@ Use this structure:
 
 Include inferred referenced paths and prefixes, concept bindings, concept-rooted and binding-relative constituent paths, instantiated standing definitions, projections, semantic bridges, and environment capabilities. For an inferred environment capability, include every direct target use and its requiring reaction context in `Use or location`, not only the first occurrence. Omit empty detail sections or state `None`. Quote only the smallest relevant YAML fragment.
 
-Sort findings as required by the lint rules. Use stable category prefixes such as `YAML`, `AOD`, `SEM`, `CTX`, and `ENV`, followed by a three-digit number.
+Sort findings as required by the lint rules. Use stable category prefixes such as `YAML`, `AOD`, `SEM`, `PROF`, `STYLE`, `CTX`, and `ENV`, followed by a three-digit number.
 
 Do not modify the attached AOD-YAML or context file. After creating the report, respond only with a link to the created Markdown file followed by the standard stage-completion menu required by `SKILL.md`.

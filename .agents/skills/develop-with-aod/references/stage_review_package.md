@@ -18,7 +18,7 @@ Before proposing anything:
 1. Parse the complete AOD-YAML and validate its context, package identity, required structure, unique contract IDs, and exact-byte digest.
 2. Apply the complete package-mode lint procedure.
 3. Build the complete semantic, scope, persistence, effect, and environment view required by the canonical references.
-4. Compare its inferred and assumed path inventory with all four AOD entry forms. Retain every missing path and its exact bare entry and placement for the mandatory framework-conformance proposal below.
+4. Compare its inferred and assumed path inventory with all four AOD entry forms. Retain every missing path and its exact bare entry and placement for the mandatory framework-conformance proposal below. Retain any `STYLE001` input-family naming information separately for the optional normalization below.
 
 Start the design dialog only when package integrity is valid and no lint error or material unresolved lint warning prevents reliable review. A `PROF001` warning for a model-valid missing bare entry is the sole exception: handle it through the mandatory framework-conformance proposal below before any optional business proposal. Otherwise stop with the blocking findings and direct the user to correct and lint the package first. Do not mix mandatory semantic repair with optional business expansion.
 
@@ -49,7 +49,7 @@ Maintain these internal structures throughout the task:
 
 BR identifiers are task-local across repeated `review-package` invocations. Before the first assignment in an invocation, inspect prior assistant-issued Stage 2 item headings in the current task and the latest `Next business-review identifier: BR-nnn` completion marker. Use the marker as a lower bound and continue after the highest actually issued heading; if neither exists, start with `BR-001`. Ignore identifiers in framework examples, attached artifacts, user quotations, and hypothetical discussion. Do not reset the sequence because Stage 2 completed, was discarded, or is invoked again.
 
-Use monotonically increasing identifiers `BR-001`, `BR-002`, and so on. Assign an identifier when a framework-conformance proposal or material reviewer proposal is presented or any user-requested package change enters the review. Do not assign identifiers to ideas discarded privately before presentation. Every assigned identifier remains consumed after application, rejection, deferral, supersession, or `Discard all`; never renumber or reuse it. Ledger statuses are `pending`, `paused`, `applied`, `rejected`, `deferred`, `superseded`, and `discarded`.
+Use monotonically increasing identifiers `BR-001`, `BR-002`, and so on. Assign an identifier when a framework-conformance proposal, optional input-naming proposal, or material reviewer proposal is presented or any user-requested package change enters the review. Do not assign identifiers to ideas discarded privately before presentation. Every assigned identifier remains consumed after application, rejection, deferral, supersession, or `Discard all`; never renumber or reuse it. Ledger statuses are `pending`, `paused`, `applied`, `rejected`, `deferred`, `superseded`, and `discarded`.
 
 Reconstruct task-local status needed for deferred recall from assistant-issued Stage 2 proposals and decision responses in the current task. Never derive a BR identity from framework examples, quoted transcripts, attached artifacts, or an unlabeled `Deferred/unspecified:` context item. BR identifiers are not persisted in the AOD package, so a deferred BR from another task is not addressable by identifier.
 
@@ -62,6 +62,12 @@ When preflight finds one or more `PROF001` warnings, make one `Framework conform
 Explain that the additions expose paths already required by the semantic interpretation, are stricter than the underlying AOD model, and have no behavioral effect. Show `No change.` for the context and list only revision and digest maintenance as mechanical finalization consequences. Apply the normal preview-and-accept gate; never normalize silently.
 
 This item is mandatory for a framework-conforming package. `Accept` applies it normally. `Revise: ...` may change placement or correct the inferred inventory, but the revised proposal must still cover every justified missing path. `Reject`, `Defer`, or `Finish` applies nothing and leaves the same item pending; explain that Stage 2 cannot finalize the package while the profile warning remains. Do not add a deferral remark for this mechanical item. `Discard all` may end the review unchanged under `Discarding the Review`, after which downstream framework stages will continue to reject the package. Present no optional reviewer or user proposal until this normalization has been accepted or the review has been discarded.
+
+## Optional Input-Naming Normalization
+
+When preflight finds one or more unambiguous `STYLE001` items, retain at most one optional nonbehavioral naming proposal covering all affected input-family roots. Present it only after mandatory framework conformance and higher-priority material reviewer proposals, or when the user requests the naming cleanup. Rename each complete family atomically across every AOD entry, determining declaration, comment containing an exact path token, and context reference. Do not change behavior, contract meaning, design decisions, assumptions, residual concerns, or unrelated wording.
+
+Use the normal preview-and-accept gate and a `BR-nnn` identifier. Explain that the package is already valid and that the proposal only applies the framework authoring convention. `Accept` applies the exact rename. `Reject` removes the item. `Defer` retains only its conversational deferred status and adds no context remark. `Finish` skips an active naming item and finalizes accepted changes. This optional item never blocks finalization or downstream stages and does not count toward the expected number of material reviewer proposals.
 
 ## Reviewer Proposals
 
@@ -84,13 +90,13 @@ Governing examples explain semantics only; never use their domain content as pro
 
 For stronger environment-backed guarantees, test relevant partial success, interruption, concurrency, replay or retry, and ambiguous acknowledgment. Put required abstract capability cooperation and stable cross-attempt identity in the candidate contract without selecting technology or provider. Remove a residual concern only when this closes its uncertainty; otherwise narrow the proposal or retain the concern.
 
-Privately discard a proposal that only confirms, restates, relabels, or moves AOD behavior already unambiguous and context-consistent. Retaining scope is material only to resolve ambiguity, conflict, an additional assumption, a residual concern, or a plausible downstream inference. Metadata reclassification, renaming, reordering, and duplicate-prose cleanup are not business-design proposals. A qualifying group split remains the sole editorial exception among business-review proposals; add it to the reviewer backlog. Mandatory explicit-declaration normalization is separate nonbehavioral package mechanics.
+Privately discard a proposal that only confirms, restates, relabels, or moves AOD behavior already unambiguous and context-consistent. Retaining scope is material only to resolve ambiguity, conflict, an additional assumption, a residual concern, or a plausible downstream inference. Metadata reclassification, renaming, reordering, and duplicate-prose cleanup are not business-design proposals. A qualifying group split remains the sole editorial exception among business-review proposals; add it to the reviewer backlog. Mandatory explicit-declaration normalization and the optional input-naming normalization are separate nonbehavioral package mechanics.
 
 Reviewer backlog entries have no authority. Re-evaluate the entire private backlog after every applied, rejected, deferred, or superseding decision. Silently remove entries that become irrelevant or duplicative and add newly material entries when a change exposes them. Do not end proposal generation merely because one proposal was accepted.
 
 Before declaring the reviewer backlog empty, classify every remaining assumption and residual concern as a proposal candidate, an implementation-profile matter, a deliberately retained no-inference boundary, or a nonmaterial technical matter. A concern whose consequence can block, duplicate, skip, or otherwise materially alter declared user-visible behavior remains a proposal candidate unless the user already rejected or deferred it or an accepted decision resolved it. Do not output `No Reviewer Proposal Pending` while such a candidate remains.
 
-Absent a current standalone `Finish` or `Discard all`, if no framework-conformance item is required, no active item exists, and no material reviewer proposal remains, do not finalize, write package files, emit the next-identifier marker, or show the stage-completion menu. Keep Stage 2 open for user-proposed changes and present exactly:
+Absent a current standalone `Finish` or `Discard all`, if no framework-conformance item or unpresented input-naming proposal remains, no active item exists, and no material reviewer proposal remains, do not finalize, write package files, emit the next-identifier marker, or show the stage-completion menu. Keep Stage 2 open for user-proposed changes and present exactly:
 
 ```markdown
 **No Reviewer Proposal Pending**
@@ -196,7 +202,7 @@ Interpret the standardized replies case-insensitively, ignoring surrounding whit
 - `Discard all` immediately abandons the entire review session under `Discarding the Review` below.
 - `Finish` ends the review, applies the `Defer` behavior to an active unresolved item, discards every unpresented backlog idea, and proceeds to finalization.
 
-The framework-conformance proposal overrides the ordinary `Reject`, `Defer`, and `Finish` effects as specified under `Framework-Conformance Normalization`.
+The framework-conformance and optional input-naming proposals override the ordinary decision effects only as specified in their respective normalization sections.
 
 Equivalent explicit natural-language answers remain valid for nonterminal decisions. Stage termination requires the standalone control `Finish` or `Discard all`; do not infer it from silence, an empty backlog, a request for files, or conversational closure.
 
