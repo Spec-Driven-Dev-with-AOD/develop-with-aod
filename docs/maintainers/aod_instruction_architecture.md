@@ -52,7 +52,9 @@ conditions without duplicating its stage procedure. It preserves the shared
 completion-menu handoff to `SKILL.md` and does not list canonical framework files
 as user attachments.
 
-`SKILL.md` loads these sets before application-specific input:
+`SKILL.md` requests any missing application-specific stage input before loading
+references. Once that input is available, it loads these sets before stage
+execution:
 
 | Stage | Bundled references |
 | --- | --- |
@@ -65,7 +67,9 @@ as user attachments.
 
 Do not create concatenated copies of these sources merely to call them bundles.
 That would restore duplicated artifacts and increase static prompt input. Add a
-reference to only those stage load sets that require it.
+reference to only those stage load sets that require it. Read the listed files
+separately or in bounded sections so a combined command-output limit cannot
+truncate a stage bundle.
 
 Keep model semantics and framework authoring policy distinct. The model summary
 may explain controlled implicit declarations; the framework package profile may

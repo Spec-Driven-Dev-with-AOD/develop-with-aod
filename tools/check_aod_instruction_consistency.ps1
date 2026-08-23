@@ -357,6 +357,8 @@ $requiredTaskPhrases = @{
         'Implementation-traceability structure',
         'Optional experience brief and restrained presentation defaults',
         'does not list canonical',
+        'requests any missing application-specific stage input before loading',
+        'separately or in bounded sections',
         'total static payload budgets including `SKILL.md`',
         'shared semantic phrases are asserted in their canonical source'
     )
@@ -868,6 +870,18 @@ if (Test-Path -LiteralPath $skillFile -PathType Leaf) {
     }
     if (-not $skillText.Contains('ask only for the stage')) {
         $errors.Add('SKILL.md does not enforce a stage-only menu turn')
+    }
+    if (-not $skillText.Contains('Before loading references, ask directly for one missing stage input and stop')) {
+        $errors.Add('SKILL.md does not request missing stage input before loading references')
+    }
+    if ($skillText -notmatch 'Read files\s+separately, using bounded sections for a long file') {
+        $errors.Add('SKILL.md does not require bounded per-file reference loading')
+    }
+    if ($skillText -notmatch 'never concatenate the bundle\s+into one command output') {
+        $errors.Add('SKILL.md does not prohibit truncation-prone combined bundle reads')
+    }
+    if ($skillText -notmatch 'Do not mention commands,\s+loading, output limits, truncation, or rereading') {
+        $errors.Add('SKILL.md does not keep routine reference loading out of the user dialog')
     }
     if (-not $skillText.Contains('Never ask the user to attach a bundled framework reference')) {
         $errors.Add('SKILL.md does not prohibit requesting bundled framework references')
