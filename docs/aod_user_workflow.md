@@ -19,6 +19,8 @@ Invoke `$develop-with-aod` with `Stage: create-package` and a natural-language d
 - `<project-slug>.aod.yaml`, which declares the application behavior;
 - `<project-slug>.aod-context.md`, which records package identity and integrity metadata, application-specific design decisions, assumptions, and the environment contract. Its `Design Decisions` section excludes behavior imposed by the AOD framework, profile, or lint rules; an unaccepted generator interpretation is recorded as an assumption instead.
 
+Stage 1 asks a follow-up question only when explicitly requested behavior cannot otherwise be represented by a coherent closed-scope package. It does not ask whether to add merely plausible adjacent functionality: absent functionality stays outside the initial package, and Stage 2 may later present a concrete optional extension for explicit review.
+
 The underlying AOD model permits some paths to be declared implicitly through references, concept bindings, constituents, prefixes, or projections. This framework deliberately makes those paths visible: every inferred or assumed path also appears exactly once in an AOD entry, usually as a declaration-only bare entry `- P`. Such an entry adds no behavior and does not by itself create an Environment Contract row.
 
 Review both files. If you subsequently edit either file, increment the package revision. After editing the AOD-YAML, run `& ./.agents/skills/develop-with-aod/scripts/get_aod_file_digest.ps1 <project-slug>.aod.yaml` from this framework repository and copy its `sha256:...` output into `AOD specification digest` in the context. Update affected context content, then invoke `$develop-with-aod` with `Stage: lint-package` to check the package and resolve material findings.
