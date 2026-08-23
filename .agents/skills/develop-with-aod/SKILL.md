@@ -67,14 +67,10 @@ task only when an independent review is desired, the existing conversation has
 become long or confusing, or a clean implementation context would be
 beneficial.
 
-When `review-package` is invoked repeatedly in the same task, continue its
-task-local `BR-nnn` sequence as defined by `stage_review_package.md`; completing
-or discarding a review does not reset it. A fresh task starts a fresh sequence.
-Within that same task, `Accept deferred BR-nnn` recalls only a known deferred
-proposal under the validation rules in `stage_review_package.md`; it never
-guesses an unknown, nondeferred, or discarded identifier.
-An active `review-package` stage completes only through an explicit `Finish` or
-`Discard all`; an empty reviewer backlog does not complete the stage.
+While `review-package` is active, route its decisions and repeated invocations
+back to that stage and preserve its task-local `BR-nnn` state. Apply its deferred
+recall and explicit completion rules only as defined by
+`stage_review_package.md`.
 
 Do not silently continue into another stage. Keep corrections, follow-up
 questions, and an adaptive dialog within the current stage. A follow-up after

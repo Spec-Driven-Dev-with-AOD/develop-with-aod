@@ -9,6 +9,7 @@ $scriptsRoot = "$skillRoot/scripts"
 
 $sets = [ordered]@{
     'spec-generation' = @(
+        "$skillRoot/SKILL.md",
         "$referencesRoot/aod_yaml_model_summary.md",
         "$referencesRoot/aod_framework_package_profile.md",
         "$referencesRoot/aod_context_format.md",
@@ -17,6 +18,7 @@ $sets = [ordered]@{
         "$referencesRoot/prompt_create_package.md"
     )
     'package-review' = @(
+        "$skillRoot/SKILL.md",
         "$referencesRoot/aod_yaml_model_summary.md",
         "$referencesRoot/aod_framework_package_profile.md",
         "$referencesRoot/aod_context_format.md",
@@ -25,6 +27,7 @@ $sets = [ordered]@{
         "$referencesRoot/prompt_review_package.md"
     )
     'linting' = @(
+        "$skillRoot/SKILL.md",
         "$referencesRoot/aod_yaml_model_summary.md",
         "$referencesRoot/aod_framework_package_profile.md",
         "$referencesRoot/aod_context_format.md",
@@ -33,6 +36,7 @@ $sets = [ordered]@{
         "$referencesRoot/prompt_lint_package.md"
     )
     'logical-preview' = @(
+        "$skillRoot/SKILL.md",
         "$referencesRoot/aod_yaml_model_summary.md",
         "$referencesRoot/aod_framework_package_profile.md",
         "$referencesRoot/aod_context_format.md",
@@ -40,6 +44,7 @@ $sets = [ordered]@{
         "$referencesRoot/prompt_logical_preview.md"
     )
     'profile-dialog' = @(
+        "$skillRoot/SKILL.md",
         "$referencesRoot/aod_yaml_model_summary.md",
         "$referencesRoot/aod_framework_package_profile.md",
         "$referencesRoot/aod_context_format.md",
@@ -49,6 +54,7 @@ $sets = [ordered]@{
         "$referencesRoot/prompt_implementation_profile.md"
     )
     'program-generation' = @(
+        "$skillRoot/SKILL.md",
         "$referencesRoot/aod_yaml_model_summary.md",
         "$referencesRoot/aod_framework_package_profile.md",
         "$referencesRoot/aod_context_format.md",
@@ -61,32 +67,49 @@ $sets = [ordered]@{
 }
 
 $budgets = @{
-    'spec-generation' = 96000
-    'package-review' = 116000
-    'linting' = 80000
-    'logical-preview' = 72000
-    'profile-dialog' = 108000
-    'program-generation' = 126000
+    'spec-generation' = 90000
+    'package-review' = 118000
+    'linting' = 84000
+    'logical-preview' = 70000
+    'profile-dialog' = 107000
+    'program-generation' = 120000
 }
 
 $invocationContracts = @{
     "$referencesRoot/prompt_create_package.md" = @(
-        'Stage: `create-package`', '`stage_create_package.md`'
+        'Stage: `create-package`', '`stage_create_package.md`',
+        '{{PROJECT_NAME_OR_BLANK}}', '{{PROJECT_SLUG_OR_BLANK}}',
+        '{{NATURAL_LANGUAGE_APPLICATION_DESCRIPTION}}'
     )
     "$referencesRoot/prompt_review_package.md" = @(
-        'Stage: `review-package`', '`stage_review_package.md`'
+        'Stage: `review-package`', '`stage_review_package.md`',
+        '{{AOD_YAML_FILENAME}}', '{{AOD_CONTEXT_FILENAME}}',
+        '{{INITIAL_REVIEW_FOCUS_OR_USER_PROPOSALS_OR_NONE}}'
     )
     "$referencesRoot/prompt_lint_package.md" = @(
-        'Stage: `lint-package`', '`stage_lint_package.md`'
+        'Stage: `lint-package`', '`stage_lint_package.md`',
+        '{{AOD_YAML_FILENAME}}', '{{AOD_CONTEXT_FILENAME_OR_NONE}}'
     )
     "$referencesRoot/prompt_logical_preview.md" = @(
-        'Stage: `logical-preview`', '`stage_logical_preview.md`'
+        'Stage: `logical-preview`', '`stage_logical_preview.md`',
+        '{{AOD_YAML_FILENAME}}', '{{AOD_CONTEXT_FILENAME}}',
+        '{{PREVIEW_SIMULATION_POLICY_OR_BLANK}}'
     )
     "$referencesRoot/prompt_implementation_profile.md" = @(
-        'Stage: `implementation-profile`', '`stage_implementation_profile.md`'
+        'Stage: `implementation-profile`', '`stage_implementation_profile.md`',
+        '{{AOD_YAML_FILENAME}}', '{{AOD_CONTEXT_FILENAME}}',
+        '{{PROJECT_NAME_OR_BLANK}}',
+        '{{EXISTING_IMPLEMENTATION_PROFILE_FILENAME_OR_NONE}}',
+        '{{EXISTING_AOD_EXPERIENCE_FILENAME_OR_NONE}}',
+        '{{EXPERIENCE_RESOURCE_FILENAMES_OR_NONE}}',
+        '{{INITIAL_IMPLEMENTATION_PREFERENCES_OR_BLANK}}'
     )
     "$referencesRoot/prompt_generate_program.md" = @(
-        'Stage: `generate-program`', '`stage_generate_program.md`'
+        'Stage: `generate-program`', '`stage_generate_program.md`',
+        '{{AOD_YAML_FILENAME}}', '{{AOD_CONTEXT_FILENAME}}',
+        '{{AOD_IMPLEMENTATION_PROFILE_FILENAME}}',
+        '{{AOD_EXPERIENCE_FILENAME_AND_RESOURCE_FILENAMES_OR_NONE}}',
+        '{{ADDITIONAL_IMPLEMENTATION_DIRECTIONS_OR_NONE}}'
     )
 }
 
@@ -182,6 +205,9 @@ $requiredTaskPhrases = @{
         'attempt to attain `P`',
         'Judge compactness semantically',
         'a unique interpretation cannot generally be proved',
+        'Target direct state or property changes directly',
+        'Define derived collections and eligibility as current-state determinations',
+        'introduce a draft boundary only when changes must remain provisional',
         'Tooling accepts clear equivalent formulations',
         'package writers normalize them and lint-only stages report them',
         'independently meaningful business rule',
@@ -225,7 +251,13 @@ $requiredTaskPhrases = @{
         'deprecated legacy heading',
         'records only material application-specific choices',
         'occurrence-versus-startup semantics',
-        'unaccepted generator-selected interpretation',
+        'assumption recording a material unaccepted behavior introduced while authoring AOD',
+        'directly required or explicitly confirmed by the user',
+        '`Authoring assumption:`',
+        'Contract assumption for `ENV-nnn`',
+        'semantically disjoint',
+        'not the provenance of the corresponding AOD behavior',
+        'Split separable contract claims with different bases',
         '`AOD-required` and `generator-assumed` may coexist',
         'identify the affected `ENV-nnn` row',
         '`Deliberately excluded:`',
@@ -265,8 +297,12 @@ $requiredTaskPhrases = @{
         'Do not warn for a path already explicit in another entry form',
         'nonbehavioral package mechanics',
         'deprecated alias for `Design Decisions`',
-        'every `generator-assumed` basis has a distinct additional assumption',
-        'no behavior already unambiguously entailed by AOD',
+        'every `generator-assumed` basis names a distinct additional contract claim',
+        'every material AOD behavior is traceable',
+        '`Design Decisions` and `Assumptions` are semantically disjoint',
+        'every material authoring assumption identifies the AOD behavior',
+        'separable contract claims with different bases use separate rows',
+        'behaviorally material temporal wording',
         'Report a modeling-quality warning',
         'Exact canonical binding wording is optional',
         'report `INFO` with its exact canonical replacement',
@@ -316,7 +352,9 @@ $requiredTaskPhrases = @{
         'Implementation-traceability semantics and coverage',
         'Implementation-traceability structure',
         'Optional experience brief and restrained presentation defaults',
-        'does not list canonical'
+        'does not list canonical',
+        'total static payload budgets including `SKILL.md`',
+        'shared semantic phrases are asserted in their canonical source'
     )
     "$referencesRoot/stage_review_package.md" = @(
         '## Framework-Conformance Normalization',
@@ -336,11 +374,19 @@ $requiredTaskPhrases = @{
         'Use monotonically increasing identifiers `BR-001`',
         'Reviewer backlog entries have no authority',
         'never use their domain content as proposal evidence',
+        'systematic coverage pass',
+        'roughly five to ten meaningful proposals',
+        'soft expectation, not a quota',
+        '`optional scope extension`',
+        'does not violate closed scope',
         'an optional strengthening',
         'Do not prefer stronger guarantees by default',
         'ambiguous acknowledgment',
         'required abstract capability cooperation and stable cross-attempt identity',
         'Remove a residual concern only when this closes its uncertainty',
+        'Before declaring the reviewer backlog empty',
+        'can block, duplicate, skip, or otherwise materially alter declared user-visible behavior',
+        'Do not end proposal generation merely because one proposal was accepted',
         '**No Reviewer Proposal Pending**',
         'Stage 2 remains open for your own change requests',
         'This open-review state receives no `BR-nnn` identifier',
@@ -379,17 +425,9 @@ $requiredTaskPhrases = @{
         'Metadata reclassification, renaming, reordering, and duplicate-prose cleanup are not business-design proposals',
         'A qualifying group split remains the sole editorial exception',
         'add it to the reviewer backlog',
-        'semantic compactness, not minimum line or declaration count',
-        'Give an independently meaningful policy a named standing definition',
-        'when it may be reviewed, changed, tested, or reused separately',
-        'or when inline wording would obscure its declaration',
-        'Do not refactor unrelated conditions',
-        'Remove a catch-all such as `if all values are valid`',
-        'Normalize user binding wording in a pending preview only when role and context yield one meaning',
-        "Preserve the model's concept-binding semantics in every candidate patch",
-        'corresponding `T.X` and `P.X` inference',
-        'Apply `T`-rooted standing definitions to corresponding `P`-rooted paths',
-        'does not itself persist it or add it to `all persisted T`',
+        'smallest coherent patch under the canonical compactness',
+        'Name independently meaningful policies',
+        'ask before assigning an ambiguous binding or constituent meaning',
         'compare current and candidate drafts by semantic item',
         'Preserve unrelated declarations, contract rows, and context items verbatim and in place',
         'append without replacing neighbors',
@@ -398,7 +436,7 @@ $requiredTaskPhrases = @{
         'Never use comment text as evidence for behavior, design decisions, or environment-contract meaning',
         'Generate any new comment only as a standalone line',
         'Include directly associated standalone comments and any attached inline comment',
-        'standing eligibility over mutable shared state as observational',
+        'atomic enforcement and conflict non-attainment',
         '### Group Cohesion and Stability',
         'Inspect every group at Stage 2 preflight',
         'do not wait for the user to request it',
@@ -435,69 +473,25 @@ $requiredTaskPhrases = @{
         'increment the package revision exactly once',
         'Compute its exact-byte SHA-256 digest'
     )
-    "$referencesRoot/prompt_review_package.md" = @(
-        'Keep one unresolved item',
-        'preserve the task-local `BR-nnn` sequence',
-        'next-identifier marker',
-        'With no reviewer proposal, show the prescribed open-review state',
-        'Only `Finish` or `Discard all` terminates Stage 2',
-        '`Accept` applies only the prior active exact preview',
-        'user package change becomes `User proposal | Pending`',
-        'an added request remains pending',
-        '`Revise: ...` remains pending',
-        'For `Accept deferred BR-nnn`, require a known same-task deferred BR',
-        'apply under the same ID only if its semantic patch is unchanged',
-        'Fail closed for an unknown or nondeferred ID',
-        'infer and allocate nothing',
-        'makes newly issued BRs ineligible',
-        'complete group-labeled current-draft diffs',
-        'Do not reconfirm unambiguous behavior',
-        'Preserve unrelated semantic items verbatim and in place',
-        'full `ID`, full `AOD reference`',
-        'only changed fields',
-        'complete other context items',
-        'Name independent policies',
-        'reject vague validity catch-alls',
-        'atomic shared-state enforcement in the capability contract',
-        'A group split is the sole editorial BR exception',
-        'requires a complete preview and later `Accept`',
-        'Apply accepted previews and lint drafts',
-        'Keep canonical files unchanged until finalization',
-        'End every pending item with exactly this final line',
-        'Never substitute `Modify`',
-        'leaves both canonical package files untouched',
-        'standard stage-completion menu required by `SKILL.md`'
-    )
     "$referencesRoot/stage_create_package.md" = @(
         'every inferred or assumed path that is absent from all four AOD entry forms receives exactly one bare given-context entry',
         'Do not add another bare entry for a path already explicit',
-        'no unresolved framework-profile explicit-path warning',
+        'no unresolved framework-profile warning',
         'primary domain object and purpose or workflow',
-        'Accept equivalent user wording',
-        'emit a canonical binding idiom only when role and context yield one meaning',
+        'private authority ledger',
+        'Material choice | Authority | AOD reference | Context placement | Question required',
+        'exactly one concise question per turn',
+        'every material user requirement maps to AOD content',
+        'every material AOD behavior maps to user-stated or user-confirmed intent or exactly one authoring assumption',
+        'Do not write the package until the ledger, AOD, context placement, and ENV bases agree',
+        'Map every behaviorally material temporal expression',
+        'Never generate legacy `X = D`',
         'use the folded block style `>` rather than `>-`',
-        'Never fall back to `aod-spec`',
-        '`Design decisions`',
-        'Classify each contract point by its exact basis',
-        'Preserve semantic compactness rather than minimizing declaration count',
-        'separately reviewable, changeable, testable, or reusable business rule',
-        'Choose groups by cohesive reading concern',
-        'leave every unaffected group unchanged',
-        'standing eligibility over mutable shared state as an observation',
-        'Phrase each constituent clearly enough to infer both `T.X`',
-        'does not define `T.X`',
-        'Do not treat a mere source, condition, qualifier, or dependency as a constituent',
-        'Begin every AOD path segment with an uppercase letter',
-        'Use recognized concept-binding formulations',
-        'target `P` then becomes its role-specific binding',
-        'apply every standing definition rooted at `T`',
-        'it does not declare `Task.Persisted`, describe a constituent, persist a concept binding, or add it to the collection',
-        'Do not write catch-alls such as `if all values are valid`',
-        'only material application-specific decisions traceable to user intent',
-        'Do not record model semantics',
-        'When application behavior must be triggered by startup',
-        'occurrence-based rather than implicitly true-triggered',
-        'Boolean helper attained as `false` is not a filter',
+        'the not-yet-created context is not a finding',
+        'Create exactly `<project-slug>.aod.yaml`',
+        'Classify the authority of each specific contract claim',
+        'only material user-stated or user-confirmed application choices as design decisions',
+        'Record neither model semantics',
         'Do not generate new inline comments',
         'preserve both standalone and inline comments',
         'Never derive AOD behavior or environment-contract meaning from comment text'
@@ -509,25 +503,6 @@ $requiredTaskPhrases = @{
         'inferred referenced paths and prefixes',
         'concept-rooted and binding-relative constituent paths',
         'instantiated standing definitions'
-    )
-    "$referencesRoot/prompt_create_package.md" = @(
-        'automatically derive a meaningful project name and slug',
-        'never use a generic placeholder',
-        'Use cohesive reading-concern groups',
-        'atomic capability contracts'
-    )
-    "$referencesRoot/prompt_implementation_profile.md" = @(
-        'ask `Project name` first',
-        'do not silently accept',
-        'Ask exactly one unnumbered material question per turn',
-        'future-topic choice leaves it pending',
-        '`Accept` records the recommendation',
-        'resolve the experience-brief gate',
-        'Resolve portability before any host commitment',
-        'portable-default technology-separation rules',
-        'login and session security separately from account',
-        'bounded self-containment',
-        'without requesting secrets'
     )
     "$referencesRoot/stage_implementation_profile.md" = @(
         'Compare every inferred or assumed path with all four AOD entry forms',
@@ -544,9 +519,6 @@ $requiredTaskPhrases = @{
         '`Accept` records the decision only',
         'keep the unmet prerequisite open',
         'first pending decision after preflight must be `Project name`',
-        'application concepts and role-specific bindings',
-        'concept-rooted and binding-relative constituents',
-        'instantiated standing definitions',
         'derivation is a recommendation, not acceptance',
         'partial explicit choices, unsolicited future-topic choices, and a follow-up',
         'Do not announce an inferred choice as recorded',
@@ -587,7 +559,6 @@ $requiredTaskPhrases = @{
         'say `compatible with` rather than equating a standard with a product',
         'never turn an explanatory example into a profile dependency',
         'Explain the term once unless its practical consequence changes',
-        'Never add startup-triggered behavior absent from AOD-YAML',
         'do not require a remote host before profile generation',
         'turn the current verification host into a profile constraint',
         'Default to local-first, fully capable, operationally representative execution',
@@ -620,20 +591,13 @@ $requiredTaskPhrases = @{
         'Pin every normative non-secret guide'
     )
     "$referencesRoot/stage_logical_preview.md" = @(
-        'Compare the resulting path inventory with all four AOD entry forms',
+        'Compare its complete inferred and assumed path inventory with all four AOD entry forms',
         'direct the user to `review-package` or `create-package`',
         'never add or assume it in the preview',
-        'distinct occurrence instance',
-        'reaction-invocation scope',
-        'before resolving any same-path standing definition',
-        'resolve `P` from its standing definition again',
-        'startup occurrence declared in AOD-YAML',
-        'accepted replay or redelivery',
-        'never compile a Boolean reaction context as implicitly true-only',
-        'nonmatching case leaves its target unattained',
-        'recognized application concepts and role-specific bindings',
-        'concept-rooted and binding-relative constituent paths',
-        'apply `T`-rooted standing definitions to corresponding `P`-rooted paths by root substitution',
+        'Compile that view without adding semantics',
+        'occurrence-based and value-independent reaction activation',
+        'concept bindings, constituents, and instantiated standing definitions',
+        'Resolve capability inputs on demand',
         '### Closed Scope',
         'AOD Technical Realization Decision TRD-nnn',
         'no-inference boundaries',
@@ -646,18 +610,10 @@ $requiredTaskPhrases = @{
         'Build the complete inferred and assumed path inventory',
         'stop before writing files',
         'never add or silently assume it during generation',
-        'distinct occurrence instance',
-        'begin a reaction-invocation scope',
-        'before resolving any same-path standing definition',
-        'resolve `P` from it again',
-        'startup occurrence declared in AOD-YAML',
-        'accepted replay or redelivery',
-        'never compile a Boolean reaction context as implicitly true-only',
-        'false-valued and other value-distinct reaction activation',
-        'application concepts and role-specific current, selected, new, and row bindings',
-        'concept-rooted and binding-relative constituent paths',
-        'compile `T`-rooted standing definitions for corresponding `P`-rooted paths by root substitution',
-        'persistence and persisted-set identity',
+        'one authoritative runtime representation per semantic path',
+        'Never replace those semantics with value-change listeners',
+        'Resolve capability inputs on demand',
+        'Add risk-appropriate tests across every semantic dimension',
         '### Closed-Scope Conformance',
         'bidirectional scope inventory',
         '## Technical Realization Decisions',
@@ -713,16 +669,6 @@ $requiredTaskPhrases = @{
         'name the inferred binding or instantiation relation it implements',
         'Framework-required declaration-only entries'
     )
-    "$referencesRoot/prompt_generate_program.md" = @(
-        'closed-scope preflight',
-        'Check actual provisioning readiness against the profile',
-        'Materialize generated setup and derived configuration',
-        'do not recast them as operator inputs',
-        'resumable generator steps',
-        "Preserve the profile's runtime",
-        'current-host verification must not bind portable output',
-        'Never reset persistent data or perform a real external effect'
-    )
     'docs/aod_user_workflow.md' = @(
         'every inferred or assumed path also appears exactly once in an AOD entry',
         'Such an entry adds no behavior',
@@ -739,6 +685,8 @@ $requiredTaskPhrases = @{
         'not a visual-design specification',
         'do not constrain the final program',
         'at most one unresolved proposal at a time',
+        'roughly five to ten meaningful proposals are a soft expectation',
+        'optional scope extension directly connected to the stated purpose',
         'numbering is task-local and remains continuous',
         'counter is not stored in the AOD package',
         'If no reviewer proposal remains, Stage 2 stays open',
@@ -874,14 +822,11 @@ if (Test-Path -LiteralPath $skillFile -PathType Leaf) {
     if ($skillText -notmatch 'Start a fresh\s+task only when') {
         $errors.Add('SKILL.md does not constrain fresh-task recommendations')
     }
-    if ($skillText -notmatch 'When `review-package` is invoked repeatedly in the same task, continue its\s+task-local `BR-nnn` sequence') {
+    if ($skillText -notmatch 'preserve its task-local `BR-nnn` state') {
         $errors.Add('SKILL.md does not preserve task-local BR numbering across review invocations')
     }
-    if ($skillText -notmatch 'Within that same task, `Accept deferred BR-nnn` recalls only a known deferred\s+proposal') {
-        $errors.Add('SKILL.md does not constrain deferred BR recall to known same-task proposals')
-    }
-    if ($skillText -notmatch 'An active `review-package` stage completes only through an explicit `Finish` or\s+`Discard all`') {
-        $errors.Add('SKILL.md does not require explicit Stage 2 termination')
+    if ($skillText -notmatch 'Apply its deferred\s+recall and explicit completion rules only as defined by\s+`stage_review_package\.md`') {
+        $errors.Add('SKILL.md does not delegate Stage 2 recall and completion rules to its procedure')
     }
     if (-not $skillText.Contains('## Complete The Stage')) {
         $errors.Add('SKILL.md does not define stage-completion navigation')

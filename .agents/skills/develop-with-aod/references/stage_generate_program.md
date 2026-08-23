@@ -4,24 +4,12 @@ You are an expert program generator for Attainment-Oriented Declarations (AOD).
 
 Generate project files from the AOD package and confirmed profile. Implement its behavior, environment contract, architecture, and technologies; do not merely print code or an essay.
 
-## Governing Inputs
-
-Apply these inputs in order:
-
-1. `aod_yaml_model_summary.md`: AOD semantics.
-2. `aod_framework_package_profile.md`: stricter explicit-path conformance for framework packages.
-3. `aod_context_format.md`: environment-contract semantics.
-4. `aod_experience_format.md`: experience boundary and format.
-5. `aod_traceability_format.md`: traceability semantics.
-6. `aod_traceability.schema.json`: traceability structure.
-7. `stage_generate_program.md`: this procedure.
-8. Attached `*.aod.yaml`: authoritative behavior and causality.
-9. Attached `*.aod-context.md`: authoritative responsibilities, success, decisions, assumptions, and residuals.
-10. Attached `*.aod-implementation.yaml`: authoritative realization and operational policy.
-11. Required brief and non-secret resources: authority only for compatible presentation.
-12. Explicit calling-prompt directions: lowest authority and limited to compatible implementation or presentation.
-
-Technology must not alter behavior, and residual concerns are not guarantees. Stop on conflict rather than modify an input, weaken a requirement, or choose incompatibly.
+The supplied AOD package governs behavior and environment responsibilities; the
+confirmed implementation profile governs realization and operational policy;
+and any required experience brief governs compatible presentation only. Calling
+directions have the lowest authority. Technology must not alter behavior, and
+residual concerns are not guarantees. Stop on conflict rather than modifying or
+weakening an input.
 
 ## Required Preflight
 
@@ -43,7 +31,10 @@ Complete this before writing project files.
 
 ### Behavioral and Environment Views
 
-Build a complete implementation view of actors and authorization; context-sensitive user, session, view, selection, row, and reaction-invocation ownership, partition, capture, lifetime and isolation; application concepts and role-specific current, selected, new, and row bindings; concept-rooted and binding-relative constituent paths; instantiated standing definitions; entities and state; creation, drafts, persistence, write-through, and persisted queries; standing dependencies; observation and attainment sources; accepted valued observations; declared startup occurrences and replay behavior; reaction invocations and causality; structured bindings; cycles, progress, and termination; and effects.
+Build one complete implementation view under the canonical model: every explicit
+or inferred path and relation, actor and authorization boundary, contextual
+scope, binding, state and persistence boundary, observation and attainment
+source, reaction and cycle, effect, and environment responsibility.
 
 Cross-check every material AOD environment dependency against the context and every contract item against an AOD reference or identified user requirement, including all causal uses of a shared capability. Stop if traceability or success semantics are materially incomplete or contradictory.
 
@@ -85,22 +76,20 @@ Honor `verification_policy.real_external_effects`. If an older profile omits thi
 
 ## Semantic Compilation Guardrails
 
-Compile directly from the complete model summary:
+Compile the validated semantic view directly and keep one authoritative runtime
+representation per semantic path. Preserve the model's distinctions among
+standing resolution, observations, target attempts, and occurrences; its
+occurrence-based reaction, startup, replay, and invocation-scope rules; its
+concept bindings, constituents, and instantiated standing definitions; its
+unordered siblings, causal follow-ons, partial non-attainment, cycles, and
+persistence boundaries. Never replace those semantics with value-change
+listeners, sequence order, global transient state, inferred deduplication, or
+imperative readings of controlled language.
 
-- keep one authoritative state representation per semantic path and do not turn editorial groups or implicit prefixes into duplicate state;
-- resolve standing definitions reactively or on demand, never as autonomous triggers or ordered setup commands;
-- create a distinct occurrence instance for every accepted observation and successful target attempt, including same-value reattainment and separately accepted equal-valued observations, but not standing resolution or operational startup loading; dispatch any reaction context declared after its path regardless of whether the occurrence carries a value and, if so, what that value is, never compile a Boolean reaction context as implicitly true-only, and apply value filtering only through an explicit value-specific occurrence or partial determination whose nonmatching case leaves its target unattained; implement startup-triggered application behavior only through a startup occurrence declared in AOD-YAML and its reaction context;
-- begin a reaction-invocation scope only when an occurrence activates a reaction context; preserve its trigger occurrence and captured bindings, let unordered sibling target attempts inherit those bindings without sibling data flow, and create an inheriting follow-on scope only after successful attainment; isolate transient bindings across concurrent scopes, while sharing or partitioning persisted and write-through state according to the AOD declarations and environment contract;
-- when a contextual target establishes a value or binding for a path `P`, use that invocation-local value throughout the reaction invocation and its causal descendants before resolving any same-path standing definition; do not replace the standing definition, and after those invocations end resolve `P` from it again unless the contextual attainment persisted or wrote through the value;
-- treat every accepted replay or redelivery as a new occurrence without silent deduplication, while keeping an adapter retry within one target attempt in the same logical attempt;
-- treat targets in one reaction context as unordered, resolve data dependencies during target attainment, and use only declared follow-on contexts for successful-attainment dependencies;
-- for every recognized binding of `P` as concept `T`, establish determined binding-relative constituent `P.X` values in the same structured attainment, recognize corresponding concept-rooted `T.X` declarations without inventing standing definitions for them, and compile `T`-rooted standing definitions for corresponding `P`-rooted paths by root substitution, including `T`-rooted references inside `D`; reject an incompatible explicit `P`-rooted definition and never treat a source, condition, qualifier, or ordinary dependency as a constituent;
-- enter follow-on contexts only after actual attainment, leaving partial or failed targets unattained;
-- scope initialization to the created or bound instance and preserve write-through versus distinct persistence acknowledgment;
-- preserve stable new, current, selected, row, concept, and semantic-bridge bindings under their declared ownership, partition, capture, lifetime, and isolation boundaries rather than globalizing transient bindings; do not treat a concept binding itself as persistence or persisted-set membership; and
-- never interpret controlled natural language as an imperative statement sequence or invent a material meaning.
-
-For a capability target, resolve required standing inputs on demand, attain it only under its contract success condition, and then run its follow-ons. A prior capability occurrence cannot satisfy a later attempt. On failure, leave it unattained unless explicit failure behavior exists. Support without a behavioral target remains infrastructure. Do not invent retry, idempotency, transaction, delivery, durability, or failure guarantees, and isolate explicitly permitted simulations from real adapters.
+Resolve capability inputs on demand, attain each capability only under its
+contract success condition for the current attempt, and activate follow-ons only
+after success. Keep infrastructure distinct from behavioral targets, preserve
+explicit simulation boundaries, and add no undeclared operational guarantee.
 
 ## Implementation
 
@@ -157,9 +146,10 @@ Generate one canonical operational path for first setup, normal start, update wh
 
 ### Implement and Test Behavior
 
-- Implement every relevant explicit path and every inferred semantic relation, including standing-definition concept-binding instantiations, bindings, reactions, capability targets, progress conditions, and termination conditions.
-- Keep UI and persistence connected to one domain state; recompute standing definitions when dependencies change or on demand.
-- Preserve declared causal follow-ons and continue cycles only while progress and attainment remain possible.
+- Implement every explicit path, inferred semantic relation, environment
+  responsibility, and success boundary from the validated implementation view.
+- Keep UI, workers, integrations, and persistence connected to one coherent
+  domain state and the compiled occurrence and causality model.
 - Keep capability failure observable to diagnostics without falsely attaining its target.
 - Enforce actor and authorization boundaries and validate structural and security properties at trust boundaries; do not infer domain acceptance or rejection rules.
 - Use transactions, retries, queues, or idempotency only when required or permitted; otherwise retain the declared limitation.
@@ -167,7 +157,15 @@ Generate one canonical operational path for first setup, normal start, update wh
 
 When a frontend is part of the target, build the usable application as the first screen, bind row interactions to their represented entity, use task-appropriate controls, and follow the confirmed experience policy. Do not display AOD tutorials or contract prose as application content; visibly distinguish permitted simulations.
 
-Add risk-appropriate tests for standing definitions and their concept-binding instantiations; inferred concept-rooted and binding-relative constituents; repeated same-value attainment; separately accepted equal-valued observations; false-valued and other value-distinct reaction activation; explicit nonmatching non-attainment; operational startup resolution versus a declared startup occurrence; replay versus adapter retry; concurrent reaction-invocation isolation; cross-user, session, view, selection, and row partition isolation when material; primary reactions; non-attainment; causal ordering; persistence and persisted-set identity; capability success and failure; authorization; and every cycle's progress and termination. Keep material code and tests traceable to exact AOD paths and contract IDs. Test simulations separately from real adapters.
+Add risk-appropriate tests across every semantic dimension in the compiled view:
+standing and concept-bound definitions; same-value reattainment and separately
+accepted equal-valued observations; value-distinct activation and explicit
+nonmatching non-attainment; startup resolution versus a declared startup
+occurrence; replay versus adapter retry; concurrent and contextual isolation;
+causal order and partiality; persistence identity; capability success and
+failure; authorization; and cycle progress and termination. Keep material code
+and tests traceable to exact AOD paths and contract IDs; test simulations
+separately from real adapters.
 
 ## AOD Implementation Traceability
 

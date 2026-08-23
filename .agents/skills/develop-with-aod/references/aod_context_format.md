@@ -72,7 +72,9 @@ Use exactly these top-level sections in this order:
 
 Do not add an implementation plan, generated code, lint report, prompt transcript, or duplicate copy of the AOD-YAML.
 
-`Design Decisions` records only material application-specific choices traceable to the user's intent or explicit acceptance. Do not list consequences imposed by the AOD model, AOD-YAML profile, framework package profile, context format, lint rules, or mechanical package maintenance, such as occurrence-versus-startup semantics, unordered reaction targets, model-permitted implicit declarations, framework-required bare-entry normalization, or conformance repairs. When a rationale mixes an application choice with framework mechanics, retain only the application-specific choice. Put an unaccepted generator-selected interpretation under `Assumptions`, not `Design Decisions`.
+`Design Decisions` records only material application-specific choices traceable to the user's intent or explicit acceptance. Do not list consequences imposed by the AOD model, AOD-YAML profile, framework package profile, context format, lint rules, or mechanical package maintenance, such as occurrence-versus-startup semantics, unordered reaction targets, model-permitted implicit declarations, framework-required bare-entry normalization, or conformance repairs. When a rationale mixes an application choice with framework mechanics, retain only the application-specific choice.
+
+`Design Decisions` and `Assumptions` must be semantically disjoint. In a newly generated context, prefix an assumption recording a material unaccepted behavior introduced while authoring AOD with `Authoring assumption:` and identify its AOD references; this records why the behavior entered the package even though AOD-YAML now declares it unambiguously. Prefix a genuinely additional environment-contract interpretation with ``Contract assumption for `ENV-nnn`:``. Do not use one assumption to serve both roles implicitly. After the user explicitly accepts an authoring assumption, remove it from `Assumptions` and, when still context-worthy, record it under `Design Decisions`.
 
 For an existing `aod-context/v1` package, accept `Decisions After Linting` as a deprecated legacy heading rather than rejecting the package. New packages must use `Design Decisions`; when a legacy context is otherwise intentionally revised, rename the heading as a nonsemantic migration and account for the context revision. Under `Residual Concerns`, prefix a materially important rejected inference with `Deliberately excluded:` and a deliberately unresolved matter with `Deferred/unspecified:`. Do not list every optional feature that was considered and rejected; record only points that clarify a plausible material downstream inference.
 
@@ -140,13 +142,15 @@ Name only the abstract boundary expected to provide the responsibility, for exam
 
 Use one or more of:
 
-- `user-stated` for a responsibility or guarantee directly required by the user;
+- `user-stated` for a responsibility or guarantee directly required or explicitly confirmed by the user;
 - `AOD-required` for support necessarily implied by an AOD path, declaration, binding, or reaction; and
 - `generator-assumed` for a reasonable but unstated interpretation.
 
-`AOD-required` and `generator-assumed` may coexist in one row only when `generator-assumed` identifies a genuinely additional contract point that is not entailed by the AOD. Name that additional point explicitly under `Assumptions` and identify the affected `ENV-nnn` row. Never add `generator-assumed` merely because AOD uses controlled natural language, implementation requires judgment, or the row restates unambiguous AOD behavior. If no distinct additional assumption exists, use `AOD-required` without `generator-assumed`.
+Basis classifies the authority of each specific contract claim, not the provenance of the corresponding AOD behavior. Environment support necessarily implied by explicit AOD is `AOD-required` even when the AOD behavior entered the package through an authoring assumption. Never add `generator-assumed` merely because AOD uses controlled natural language, implementation requires judgment, or a generator originally selected the behavior.
 
-Every material `generator-assumed` contract point must also appear under `Assumptions`. Do not repeat behavior already unambiguously declared by AOD as an assumption. Unresolved risks or guarantees that remain intentionally absent belong under `Residual Concerns`, not in the contract as if they were provided. A downstream generator must treat a matter identified as unspecified or residual as a no-inference boundary: it may preserve the limitation, but it must not silently select a business rule, guarantee, or externally observable policy that resolves it.
+`AOD-required` and `generator-assumed` may coexist in one row only when `generator-assumed` identifies a genuinely additional inseparable contract point that is not entailed by AOD. Name it as a contract assumption under `Assumptions` and identify the affected `ENV-nnn` row. Split separable contract claims with different bases into separate `ENV-nnn` rows. If no distinct additional claim exists, use `AOD-required` without `generator-assumed`.
+
+Every material `generator-assumed` contract point must appear exactly once as a contract assumption. Do not restate behavior already unambiguously declared by AOD as a contract assumption; this does not prohibit an authoring assumption from recording that behavior's provenance. Unresolved risks or guarantees that remain intentionally absent belong under `Residual Concerns`, not in the contract as if they were provided. A downstream generator must treat a matter identified as unspecified or residual as a no-inference boundary: it may preserve the limitation, but it must not silently select a business rule, guarantee, or externally observable policy that resolves it.
 
 ## Compactness and Readability
 

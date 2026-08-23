@@ -8,37 +8,35 @@ The output is a logical and behavioral preview, not a visual-design prototype or
 
 Create the application as one actual `.html` file in the current working directory. The file must contain all required HTML, CSS, and JavaScript. Do not merely output the HTML source in the chat response. Do not generate a backend, server code, framework project, additional files, or an explanatory essay.
 
-## Governing Files and Authority
+The supplied AOD-YAML governs behavior. Its companion context governs
+environment responsibilities, success conditions, assumptions, and residual
+concerns without adding behavior. The selected preview simulation policy applies
+only to visibly labeled substitutes in this standalone preview; it cannot change
+the package, weaken a success condition, override a prohibition, or authorize
+simulation later.
 
-Use the bundled references and application-specific inputs with this authority:
-
-1. `aod_yaml_model_summary.md` governs AOD model and AOD-YAML semantics.
-2. `aod_framework_package_profile.md` governs stricter explicit-path conformance for framework packages.
-3. `aod_context_format.md` governs the companion context and environment-contract format.
-4. `stage_logical_preview.md` governs the specialized self-contained frontend realization and output.
-5. The attached `*.aod.yaml` file governs application behavior.
-6. The attached `*.aod-context.md` file governs environment responsibilities, capability success conditions, assumptions, and residual concerns.
-7. The explicit preview simulation policy supplied by the calling prompt governs only whether this standalone preview may use visibly labeled substitutes for capabilities that the browser cannot provide.
-
-The context must not add behavior absent from the AOD-YAML. The preview simulation policy must not change AOD behavior, weaken an environment responsibility or success condition, override an explicit user-stated prohibition, or grant simulation permission to a later implementation profile.
-
-Before generation, verify that the context declares `aod-package/v1`, a valid package ID and positive revision, `aod-yaml/v1`, and `aod-context/v1`; that both package filenames share the canonical project slug; that the context names the attached AOD-YAML file exactly, contains the required environment-contract fields, and uses unique `ENV-nnn` identifiers. Compute the exact-byte SHA-256 digest of the attached AOD-YAML file and require it to match the context metadata. Cross-check that every material environment dependency is covered and every contract item is traceable to the AOD or a clearly identified user requirement.
+Before generation, validate package identity, structure, canonical filenames,
+unique contract IDs, and exact-byte AOD digest under the context format. Require
+complete bidirectional environment coverage and traceability.
 
 ## Semantic Preflight
 
-Read `aod_yaml_model_summary.md` completely and validate the whole specification against it before generation. Build one executable semantic view containing path roles, context-sensitive ownership, partition, capture, lifetime and isolation, standing definitions and dependencies, recognized application concepts and role-specific bindings, inferred concept-rooted and binding-relative constituent paths, instantiated standing definitions, observation and attainment sources, accepted valued observations, reaction contexts and reaction-invocation scopes, structured bindings and projections, startup and replay behavior, partial attainments, cycles and progress measures, and all `ENV-nnn` responsibilities. Compare the resulting path inventory with all four AOD entry forms. If any inferred or assumed path lacks an explicit entry required by `aod_framework_package_profile.md`, stop, list every exact `- P` addition and suggested group, and direct the user to `review-package` or `create-package`; never add or assume it in the preview. Group boundaries remain editorial. If materially different scope interpretations would change behavior and the package does not determine the intended boundary, stop for package clarification rather than selecting a preview interpretation.
+Validate the complete package and build one executable semantic view under the
+model summary, framework profile, and environment contract. Compare its complete
+inferred and assumed path inventory with all four AOD entry forms. If the profile
+requires a missing entry, stop, list every exact `- P` addition with its suggested
+group, and direct the user to `review-package` or `create-package`; never add or
+assume it in the preview. Stop likewise when a material scope or controlled-
+language interpretation remains unresolved.
 
-Apply these implementation-critical consequences of the governing model:
-
-- Resolve standing definitions reactively and on demand; never compile them as autonomous triggers or ordered setup steps.
-- Create a distinct occurrence instance for every accepted observation and successful target attempt, including same-value reattainment and separately accepted equal-valued observations. Dispatch any reaction context declared after its path regardless of whether the occurrence carries a value and, if so, what that value is; never compile a Boolean reaction context as implicitly true-only. Apply value filtering only through an explicit value-specific occurrence or partial determination whose nonmatching case leaves its target unattained. Do not trigger from initial or repeated standing resolution. Implement application behavior triggered by startup only through a startup occurrence declared in AOD-YAML and its reaction context.
-- Preserve declared user, session, view, selection, row, and other contextual partitions rather than globalizing their paths. Begin a reaction-invocation scope only when an occurrence activates a reaction context; preserve its trigger occurrence and captured bindings for their declared lifetime, let sibling target attempts inherit those bindings without sibling data flow, and create an inheriting follow-on scope only after successful attainment. Keep transient bindings isolated across concurrent scopes, and share or partition persisted and write-through state according to the AOD declarations and environment contract.
-- When a contextual target establishes a value or binding for a path `P`, use that invocation-local value throughout the reaction invocation and its causal descendants before resolving any same-path standing definition. Do not replace the standing definition; after those invocations end, resolve `P` from its standing definition again unless the contextual attainment persisted or wrote through the value.
-- Treat accepted replay or redelivery as a new occurrence and repeat its reactions. Do not silently deduplicate it; keep an adapter retry within one target attempt in that logical attempt.
-- Compile targets in one reaction context as unordered. Resolve data dependencies as part of target attainment, and use only declared follow-on reaction contexts for dependencies on successful attainment.
-- For every recognized binding of `P` as concept `T`, establish clearly determined binding-relative constituent `P.X` values with the enclosing structured attainment, recognize corresponding concept-rooted `T.X` declarations without inventing standing definitions for them, and apply `T`-rooted standing definitions to corresponding `P`-rooted paths by root substitution. Do not treat a source, condition, qualifier, or ordinary dependency as a constituent, and do not compile these relations as later causal stages.
-- Enter a reaction context only after its path is actually attained or observed. A partial declaration that yields no value remains unattained.
-- Preserve the semantics of justified path inferences and concept bindings, including clear equivalent wording, while requiring every resulting path to be explicit under the framework profile. Never infer a binding from lowercase ordinary prose or invent an unclear constituent, source, projection, identity bridge, capability, or natural-language meaning.
+Compile that view without adding semantics. In particular, preserve standing
+resolution versus occurrence dispatch; occurrence-based and value-independent
+reaction activation; declared startup and replay behavior; reaction-invocation
+binding capture and isolation; concept bindings, constituents, and instantiated
+standing definitions; unordered sibling targets and successful-attainment
+follow-ons; partial non-attainment; and cycle progress. Resolve capability inputs
+on demand and activate follow-ons only after the capability meets its contract
+success condition.
 
 If the AOD package is structurally invalid, materially contradictory, or too ambiguous to implement faithfully, stop and report the blocking paths or contract items instead of creating an application.
 
@@ -73,10 +71,9 @@ Implementation behavior:
 - Do not infer idempotency, retry, transaction, duplicate-event, failure, delivery, durability, or acknowledgment guarantees absent from the package.
 - Keep nonpersisted application state in JavaScript memory. When the AOD declares persisted values or persistence across application sessions, use `localStorage` only when it satisfies the context's persistence responsibility and success condition. If the environment contract requires stronger durability or another boundary, follow the selected preview simulation policy. Commit write-through updates to already persisted bindings immediately. For browser-real persistence, enter a distinct `.Persisted` reaction context only after storage succeeds under the contract. For a permitted preview simulation, enter it only after the visibly simulated persistence result is established.
 - Back persisted collections with the chosen persistence mechanism.
-- Implement derived definitions reactively: when source values change, recompute dependent values.
-- Implement reaction contexts through occurrence dispatch, not solely through value-change or state-transition listeners.
-- Implement recursive or repeated reactions only with a credible progress measure, such as a shrinking candidate set or a state update that removes the current item from eligibility.
-- Avoid infinite loops. If a reaction could repeat, continue only while its target can actually be attained; stop when a partial binding such as `first ... if any` yields no value.
+- Realize the validated semantic view directly; do not substitute value-change
+  listeners, sibling execution order, or browser convenience for its occurrence,
+  causality, partiality, and cycle semantics.
 
 UI design:
 

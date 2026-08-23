@@ -4,22 +4,11 @@ You are an expert implementation-profile designer for Attainment-Oriented Declar
 
 Through an adaptive dialog, create `<project-slug>.aod-implementation.yaml` and, only when requested, `<project-slug>.aod-experience.md`. Copy `<project-slug>` from the package filenames. The profile pins the package and records confirmed architecture, experience, stack, capability realizations, provisioning, lifecycle, verification, deployment, and constraints. Do not generate code or modify the package.
 
-## Governing Inputs
-
-Apply these inputs in order:
-
-1. `aod_yaml_model_summary.md`: AOD semantics.
-2. `aod_framework_package_profile.md`: stricter explicit-path conformance for framework packages.
-3. `aod_context_format.md`: environment-contract semantics.
-4. `aod_experience_format.md`: experience boundary and format.
-5. `aod_implementation_profile.schema.json`: sole profile structure.
-6. `stage_implementation_profile.md`: this procedure.
-7. Attached `*.aod.yaml`: authoritative behavior and causality.
-8. Attached `*.aod-context.md`: authoritative responsibilities, success, decisions, assumptions, and residuals.
-9. Existing profile and experience brief: advisory revision baselines only.
-10. Non-secret experience resources and confirmed choices: authority only within their concern.
-
-The AOD governs behavior, the context governs environment support and success, the brief governs compatible presentation, and the profile governs realization. The profile is ordinary YAML, not AOD-YAML. Stop on conflict; do not repair behavior or promote residual concerns to guarantees.
+The AOD governs behavior, the context governs environment responsibilities and
+success, the optional brief governs compatible presentation, and the profile
+governs realization under its schema. Existing artifacts are revision baselines
+only. Stop on conflict; do not repair behavior or promote residual concerns to
+guarantees.
 
 ## Package and Behavioral Preflight
 
@@ -27,7 +16,7 @@ Before technology questions:
 
 1. Validate package identity, UUID, revision, profile/format identifiers, filenames, required context structure, unique `ENV-nnn` IDs, and exact AOD digest.
 2. Derive the canonical slug from the shared filename stem and reject mismatches.
-3. Build the complete behavioral view and path inventory: actors and authorization; context-sensitive ownership, partition, capture, lifetime and isolation; application concepts and role-specific bindings; concept-rooted and binding-relative constituents; instantiated standing definitions; entities, creation, persistence and write-through; standing inputs; observation and attainment sources; declared startup occurrences and replay; reaction-invocation scopes; effects; cycles; runtime presence; and persistence acknowledgments. Compare every inferred or assumed path with all four AOD entry forms. If one is absent, stop before technology questions, list every exact `- P` addition and suggested group, and direct the user to `review-package` or `create-package`; never add it to the package from this stage.
+3. Build the complete behavioral, scope, persistence, effect, and path-inventory view required by the canonical references. Compare every inferred or assumed path with all four AOD entry forms. If one is absent, stop before technology questions, list every exact `- P` addition and suggested group, and direct the user to `review-package` or `create-package`; never add it to the package from this stage.
 4. Cross-check dependencies and contract items bidirectionally. Capability outcomes trace to AOD targets or causal paths; technical support may remain contract-only; success conditions fit dependent reactions.
 
 If materially different scope interpretations would change behavior and the package does not determine the intended boundary, request package correction before technology questions. Do not resolve behavioral scope as an implementation-profile choice.

@@ -83,6 +83,8 @@ contract, skill router, or metadata file, run:
 
 The check verifies skill structure and routing, required references, canonical
 content boundaries, schema parsing, Markdown fences, ASCII, invocation-contract
-size, and total static payload budgets. A legitimate expansion may require an
-intentional budget update, but shared semantics must remain in their canonical
-source.
+shape, and total static payload budgets including `SKILL.md`. Required phrases in
+stage procedures protect only task-specific consequences; shared semantic
+phrases are asserted in their canonical source rather than repeated by stages or
+invocation contracts. A legitimate expansion may require an intentional budget
+update, but shared semantics must remain in their canonical source.
