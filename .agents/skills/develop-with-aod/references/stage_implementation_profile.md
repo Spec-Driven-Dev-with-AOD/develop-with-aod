@@ -16,7 +16,7 @@ Before technology questions:
 
 1. Validate package identity, UUID, revision, profile/format identifiers, filenames, required context structure, unique `ENV-nnn` IDs, and exact AOD digest.
 2. Derive the canonical slug from the shared filename stem and reject mismatches.
-3. Build the complete behavioral, scope, persistence, effect, and path-inventory view required by the canonical references. Compare every inferred or assumed path with all four AOD entry forms. If one is absent, stop before technology questions, list every exact `- P` addition and suggested group, and direct the user to `review-package` or `create-package`; never add it to the package from this stage.
+3. Build the complete behavioral, scope, persistence, effect, and path-inventory view required by the canonical references. Compare every inferred or assumed path with all four AOD entry forms and apply the package profile's proper-prefix coverage rule from longest path to shortest. If a path is neither exactly explicit nor prefix-covered, stop before technology questions, list every exact `- P` addition and suggested group, and direct the user to `review-package` or `create-package`; never add it to the package from this stage.
 4. Cross-check dependencies and contract items bidirectionally. Capability outcomes trace to AOD targets or causal paths; technical support may remain contract-only; success conditions fit dependent reactions.
 
 If materially different scope interpretations would change behavior and the package does not determine the intended boundary, request package correction before technology questions. Do not resolve behavioral scope as an implementation-profile choice.

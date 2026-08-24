@@ -70,8 +70,8 @@ $budgets = @{
     'spec-generation' = 95000
     'package-review' = 122000
     'linting' = 88000
-    'logical-preview' = 70000
-    'profile-dialog' = 107000
+    'logical-preview' = 72000
+    'profile-dialog' = 109000
     'program-generation' = 120000
 }
 
@@ -222,8 +222,9 @@ $requiredTaskPhrases = @{
         'new Task that is not completed',
         'standing definition rooted at `T` applies to `P`',
         'does not itself produce, attain, or observe an occurrence',
-        'The phrase `all persisted Task` denotes a collection of persisted values of concept `Task`',
-        'Binding `NewTask` as `Task` does not itself persist `NewTask`',
+        'In `all persisted Task`, the declaration determines a collection',
+        '`NewTask.Persisted` is instead a separately and explicitly named attainment target',
+        'Binding `NewTask` as `Task` does not itself store `NewTask`',
         'Choose groups by cohesive reading concern',
         'preserve group names, order, and declaration placement by default',
         '`if all values are valid`',
@@ -276,13 +277,14 @@ $requiredTaskPhrases = @{
     )
     "$referencesRoot/aod_framework_package_profile.md" = @(
         'does not change AOD semantics',
-        'every AOD path inferred or assumed during semantic interpretation must also occur explicitly as an AOD-YAML entry',
+        'must either occur exactly in an AOD-YAML entry or be covered as a proper prefix of a longer path that occurs in an entry',
         'a triggering path `Q` with a reaction list',
         'Do not add a second bare entry',
         'paths referenced only in an unquoted determining declaration `D`',
         'undeclared prefix paths',
         'concept-rooted constituent path `T.X` and binding-relative constituent path `P.X`',
-        'For every inventory path absent from all entry forms, add exactly one bare given-context entry',
+        'Normalize the inventory from longest paths to shortest',
+        'is not a proper prefix of an entry already present or scheduled',
         'does not by itself require an environment-contract row',
         'clarify the interpretation first',
         'naming convention for transient values supplied directly by a user',
@@ -498,7 +500,8 @@ $requiredTaskPhrases = @{
         'Compute its exact-byte SHA-256 digest'
     )
     "$referencesRoot/stage_create_package.md" = @(
-        'every inferred or assumed path that is absent from all four AOD entry forms receives exactly one bare given-context entry',
+        'every inferred or assumed path that is absent from all four AOD entry forms and is not a proper prefix of an entry already present or scheduled receives exactly one bare given-context entry',
+        'an added `Task.Completed` also covers structural prefix `Task`',
         'Do not add another bare entry for a path already explicit',
         'no unresolved framework-profile warning',
         'primary domain object and purpose or workflow',
@@ -531,7 +534,7 @@ $requiredTaskPhrases = @{
         'Never derive AOD behavior or environment-contract meaning from comment text'
     )
     "$referencesRoot/stage_lint_package.md" = @(
-        'Report every model-valid path that lacks the bare entry required by the framework profile as `PROF001`',
+        'Report every model-valid path that is neither exactly explicit nor covered as a proper prefix of a longer entry as `PROF001`',
         'never add it silently',
         'nonblocking `STYLE001` information',
         'exact atomic rename covering the complete family',
@@ -542,7 +545,7 @@ $requiredTaskPhrases = @{
         'instantiated standing definitions'
     )
     "$referencesRoot/stage_implementation_profile.md" = @(
-        'Compare every inferred or assumed path with all four AOD entry forms',
+        'Compare every inferred or assumed path with all four AOD entry forms and apply the package profile''s proper-prefix coverage rule',
         'stop before technology questions',
         'direct the user to `review-package` or `create-package`',
         'Ask exactly one next highest-priority material question',
@@ -707,8 +710,9 @@ $requiredTaskPhrases = @{
         'Framework-required declaration-only entries'
     )
     'docs/aod_user_workflow.md' = @(
-        'every inferred or assumed path also appears exactly once in an AOD entry',
-        'Such an entry adds no behavior',
+        'each one either appears exactly in an AOD entry',
+        '`Task.Completed` covers structural prefix `Task`',
+        'Such entries and prefix coverage add no behavior',
         'Stage 1 asks a follow-up question only when explicitly requested behavior cannot otherwise be represented by a coherent closed-scope package',
         'no proposed answer would add an unrequested action, state transition, data item, effect, lifecycle or stopping rule, or business policy',
         'Missing optional functionality or a nonblocking stopping condition stays outside the initial package',

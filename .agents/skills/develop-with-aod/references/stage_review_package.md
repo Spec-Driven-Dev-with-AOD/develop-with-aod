@@ -57,7 +57,7 @@ Immediately before the standard stage-completion menu in every completed or disc
 
 ## Framework-Conformance Normalization
 
-When preflight finds one or more `PROF001` warnings, make one `Framework conformance proposal | Pending` the first active item. Include every missing path in one exact AOD-YAML patch, adding each path exactly once as a bare given-context entry in the most relevant existing group. Do not add a duplicate for a path already explicit as a given entry, triggering path, or reaction target. Do not change behavior, determining declarations, context content, environment-contract rows, or comments solely for this normalization.
+When preflight finds one or more `PROF001` warnings, make one `Framework conformance proposal | Pending` the first active item. Include every missing path in one exact AOD-YAML patch, adding each path exactly once as a bare given-context entry in the most relevant existing group. Apply additions from longest path to shortest and omit a standalone prefix once a longer entry covers it. Do not add a duplicate for a path already explicit as a given entry, triggering path, or reaction target, or for a prefix covered by a longer entry. Do not change behavior, determining declarations, context content, environment-contract rows, or comments solely for this normalization.
 
 Explain that the additions expose paths already required by the semantic interpretation, are stricter than the underlying AOD model, and have no behavioral effect. Show `No change.` for the context and list only revision and digest maintenance as mechanical finalization consequences. Apply the normal preview-and-accept gate; never normalize silently.
 
@@ -263,7 +263,7 @@ Only mechanical wording, comment, or formatting corrections required to realize 
 For every applied decision:
 
 1. Immediately apply exactly the displayed semantic patch to the working drafts. Do not postpone accepted changes until the end of the dialog.
-2. Preserve AOD compactness and the semantics of concept bindings, concept-rooted and binding-relative constituent paths, instantiated standing definitions, stable identities and bindings, explicit causal capability use, progress, and termination while ensuring that every inferred or assumed path has an explicit entry under the framework profile.
+2. Preserve AOD compactness and the semantics of concept bindings, concept-rooted and binding-relative constituent paths, instantiated standing definitions, stable identities and bindings, explicit causal capability use, progress, and termination while ensuring that every inferred or assumed path is exactly explicit or prefix-covered under the framework profile.
 3. Update every affected context responsibility, success condition, design decision, assumption, exclusion, or residual concern.
 4. Preserve an existing `ENV-nnn` identifier while its responsibility remains materially the same. Assign the next unused identifier to a new responsibility; never renumber or reuse identifiers merely to close a gap.
 5. Compute the draft AOD digest in memory and rerun the complete package lint procedure against both drafts.
@@ -305,7 +305,7 @@ Interpret the standalone response `Discard all` case-insensitively at any dialog
 Finalize only after the standalone response `Finish`. A standalone `Discard all` follows `Discarding the Review` instead. Do not finalize automatically or merely because the user requests files.
 
 1. Run a final full AOD and context review under all governing sources.
-2. Rebuild the complete path inventory and require every inferred or assumed path to occur in an AOD entry. If any `PROF001` warning remains, do not finalize; keep or present the mandatory framework-conformance proposal.
+2. Rebuild the complete path inventory and require every inferred or assumed path to be exactly explicit or covered as a proper prefix of a longer entry. If any `PROF001` warning remains, do not finalize; keep or present the mandatory framework-conformance proposal.
 3. If neither working draft changed, do not rewrite either file and preserve package revision and digest.
 4. If either file changed, preserve the package ID and increment the package revision exactly once for this completed review session in the context draft.
 5. Write the final AOD-YAML first using its existing canonical filename.

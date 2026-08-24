@@ -211,7 +211,7 @@ Contextual wording may clarify a material scope boundary without adding syntax:
     represented by this row instance
 ```
 
-The phrase `all persisted Task` denotes a collection of persisted values of concept `Task`. Here, `persisted` qualifies the source collection; it is neither an AOD path reference nor a constituent description and therefore does not declare `Task.Persisted`. Binding `NewTask` as `Task` does not itself persist `NewTask` or place it in that collection. After the explicitly named target `NewTask.Persisted` succeeds, the environment contract must require the bound value to retain its identity and constituent values and become a member of the persisted `Task` universe.
+In `all persisted Task`, the declaration determines a collection. The word `persisted` restricts that collection to already stored `Task` values; it does not establish or expose a persistence constituent on each task and therefore does not declare `Task.Persisted`. `NewTask.Persisted` is instead a separately and explicitly named attainment target. Binding `NewTask` as `Task` does not itself store `NewTask` or place it in the collection. After `NewTask.Persisted` succeeds, the environment contract must require the same bound value, with its identity and constituent values preserved, to become resolvable as a member of `all persisted Task`. If persistence is intended to be an independently resolvable property of every task, `Task.Persisted` must be declared explicitly.
 
 ## Effects and Environment Capabilities
 
