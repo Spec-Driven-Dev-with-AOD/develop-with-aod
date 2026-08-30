@@ -3,14 +3,29 @@
 `develop-with-aod` is a Codex skill for specification-driven application
 development using
 [Attainment-Oriented Declarations (AOD)](.agents/skills/develop-with-aod/references/aod_yaml_model_summary.md).
-It guides an application from natural-language intent through an inspectable
-AOD package, review, linting, logical preview, implementation profiling, and
-verified program generation. The approach is considered suitable for citizen developers.
+AOD combines the declarative construction principle familiar from low-code
+development with an open, application-specific path vocabulary. Paths,
+standing determining declarations, concept bindings, and reaction contexts
+provide a constrained and inspectable behavioral structure without prescribing
+the target technology.
 
-The skill currently uses **Interpretive AOD**. AOD declarations may contain
-controlled natural language, so linting and generation can still require model
-judgment. The generated AOD package remains the principal behavioral input;
-implementation choices are recorded separately.
+The skill implements an AOD-based behavioral specification process. It turns
+natural-language intent into an AOD package comprising a `*.aod.yaml`
+specification and a companion `*.aod-context.md` file containing its environment
+contract, material design decisions, assumptions, and residual concerns. The
+package can be reviewed and linted before implementation choices are selected
+through an implementation profile and a program generator realizes the declared
+behavior. The AOD user retains control over behavioral intent and business
+decisions, while the generator handles much of the technical realization.
+
+The skill currently uses **Interpretive AOD**. Its declarations may contain
+controlled natural language, so semantic tooling can surface materially
+different interpretations and require clarification, but it cannot generally
+prove the absence of all material ambiguity. Model judgment and subsequent
+verification therefore remain necessary. The AOD package remains the principal
+behavioral input, while implementation choices are recorded separately. Using
+an LLM for generation does not imply that the generated application requires an
+LLM at runtime.
 
 The AOD model permits controlled implicit path declarations. Framework packages
 use a stricter authoring profile: every inferred or assumed path must also occur
