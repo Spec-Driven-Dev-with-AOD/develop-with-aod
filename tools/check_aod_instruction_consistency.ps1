@@ -67,12 +67,12 @@ $sets = [ordered]@{
 }
 
 $budgets = @{
-    'spec-generation' = 95000
-    'package-review' = 122000
-    'linting' = 88000
-    'logical-preview' = 72000
-    'profile-dialog' = 109000
-    'program-generation' = 120000
+    'spec-generation' = 102000
+    'package-review' = 130000
+    'linting' = 94000
+    'logical-preview' = 76000
+    'profile-dialog' = 115000
+    'program-generation' = 127000
 }
 
 $invocationContracts = @{
@@ -200,6 +200,9 @@ $requiredTaskPhrases = @{
     "$referencesRoot/aod_yaml_model_summary.md" = @(
         'framework package profile may require explicit bare entries',
         'Path ::= UppercaseIdentifier',
+        'In the metavariables used below',
+        '`T` additionally denotes the application-concept path',
+        '`X` denotes a clearly identified constituent suffix',
         'Each identifier segment must begin with an uppercase letter',
         'declared without a standing definition',
         'attempt to attain `P`',
@@ -218,6 +221,8 @@ $requiredTaskPhrases = @{
         'A source, condition, qualifier, or ordinary dependency mentioned by `D` is not thereby a constituent',
         'Successful attainment of `P` establishes the described value of `P.X`',
         'neither path is a later assignment or separate causal stage',
+        'Ordinary declaration by use does not attain the declared path',
+        'does not, by itself, establish a concept binding',
         'Lowercase `new task` is ordinary prose',
         'new Task that is not completed',
         'standing definition rooted at `T` applies to `P`',
@@ -230,6 +235,8 @@ $requiredTaskPhrases = @{
         '`if all values are valid`',
         'observation, not a reservation or transaction',
         'must recheck it atomically',
+        'need for environment-contract coverage follows from the required attainment semantics',
+        'If a required input cannot be resolved, the capability target remains unattained and creates no occurrence',
         'YAML mapping-key uniqueness does not detect repeated path keys',
         'may have at most one standing declaration',
         'may declare at most one reaction list for each triggering path `Q`',
@@ -338,6 +345,8 @@ $requiredTaskPhrases = @{
         'root substitution',
         'Do not infer from a bare given-context entry `P` alone',
         'target attempt rather than guaranteed attainment',
+        'Determine environment-contract coverage from required attainment semantics, not target form alone',
+        'If any required input cannot be resolved, the target remains unattained, creates no occurrence, and activates no follow-on reaction',
         'inference basis and confidence',
         'it does not declare `Task.Persisted` and is not a constituent description',
         'Binding `NewTask` as `Task` does not itself persist it',
@@ -638,6 +647,7 @@ $requiredTaskPhrases = @{
         'occurrence-based and value-independent reaction activation',
         'concept bindings, constituents, and instantiated standing definitions',
         'Resolve capability inputs on demand',
+        'If a required input cannot be resolved, leave the target unattained',
         '### Closed Scope',
         'AOD Technical Realization Decision TRD-nnn',
         'no-inference boundaries',
@@ -653,6 +663,7 @@ $requiredTaskPhrases = @{
         'one authoritative runtime representation per semantic path',
         'Never replace those semantics with value-change listeners',
         'Resolve capability inputs on demand',
+        'If a required input cannot be resolved',
         'Add risk-appropriate tests across every semantic dimension',
         '### Closed-Scope Conformance',
         'bidirectional scope inventory',

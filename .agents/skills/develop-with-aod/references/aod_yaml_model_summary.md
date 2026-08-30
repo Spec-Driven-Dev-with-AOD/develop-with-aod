@@ -62,6 +62,8 @@ Consequently, the accepted AOD-YAML forms are:
     - P: D
 ```
 
+In the metavariables used below, `P` denotes a path, `Q` a path introducing a reaction context, and `D` a determining declaration. In concept-binding rules, `T` additionally denotes the application-concept path to which role-specific binding path `P` is bound, and `X` denotes a clearly identified constituent suffix. `T` is a concept-path metavariable, not a formal type.
+
 A mapping value that is a scalar or block scalar is a determining declaration `D`. A mapping value that is a nested block sequence is a reaction list. Declaration values cannot themselves be mappings or sequences, and reaction blocks cannot be nested inside reaction lists.
 
 The grammar permits repeated sequence items, and YAML mapping-key uniqueness does not detect repeated path keys contained in separate sequence items. The context-specific uniqueness constraints below are therefore semantic well-formedness rules applied after YAML parsing.
@@ -182,9 +184,11 @@ AOD-YAML permits controlled implicit declarations and does not require every pat
 - A projection or write-through path based on an explicit binding, such as `TaskItem.Task.Completed`, need not be separately declared when `TaskItem.Task` binds a `Task` and `Task.Completed` is known.
 - A capability-backed outcome such as `ReminderMail.Sent` is explicitly declared by its use as a reaction target and needs no separate bare declaration in the given context.
 
+Ordinary declaration by use does not attain the declared path and does not, by itself, establish a concept binding. Only a recognized concept-binding formulation adds that relation.
+
 An implicit declaration is not a definition unless a determining declaration `D` supplies one for the path. Tooling must surface inferred referenced paths and prefixes, recognized concept bindings, concept-rooted constituent paths and their binding-relative counterparts, instantiated standing definitions, projections, semantic bridges, and capabilities together with their inference basis and confidence. If an inference is unclear or materially affects behavior, clarify it rather than silently inventing semantics.
 
-For example, the contextual declaration `NewTask: new Task that is not completed` recognizes `NewTask` as a binding of concept `Task`; its clear constituent description implicitly declares `Task.Completed` and `NewTask.Completed`, and successful attainment establishes `NewTask.Completed` as `false`. It does not create a standing definition for `Task.Completed`. The inference follows from the clear concept-bound relation and constituent meaning, not from a reserved word such as `with`.
+For example, in the contextual declaration `NewTask: new Task that is not completed`, `P` is `NewTask`, `T` is `Task`, and `X` is `Completed`. The declaration recognizes `NewTask` as a binding of concept `Task`; its clear constituent description implicitly declares `Task.Completed` and `NewTask.Completed`, and successful attainment establishes `NewTask.Completed` as `false`. It does not create a standing definition for `Task.Completed`. The inference follows from the clear concept-bound relation and constituent meaning, not from a reserved word such as `with`.
 
 ## Natural-Language Declarations and Binding
 
@@ -224,7 +228,9 @@ A bare reaction target can ask the environment to attain an effectful outcome:
 
 The environment may attain `Mail.Sent` by sending a message using declared recipient, subject, and body values. In contrast, the contextual target `Mail.Sent: true` requests attainment of the represented state as true; it does not by itself require the mail-sending effect unless the environment contract gives that determination the corresponding effectful semantics.
 
-When a bare capability target is attempted, the environment resolves its required standing definitions on demand. Those definitions are not preceding reaction steps and require no attainment order. The environment contract identifies the required inputs and the capability's success condition when they are material.
+The need for environment-contract coverage follows from the required attainment semantics, not from the target form alone. Such coverage is mandatory whenever attaining either form depends on behavior not determined by the AOD declarations, including observation, persistence, or an environment-backed effect.
+
+When a target backed by an environment capability is attempted, the capability resolves the input paths it requires, including applicable standing definitions, on demand. These are data dependencies resolved within the target attempt, not preceding reaction steps, and require no attainment order. The environment contract identifies the material required inputs and the capability's success condition. If a required input cannot be resolved, the capability target remains unattained and creates no occurrence.
 
 A standing definition that tests eligibility against mutable shared state is an observation, not a reservation or transaction. When its invariant must still hold as persistence or another environment-backed effect succeeds, the responsible capability must recheck it atomically. A conflict leaves the capability target unattained; the environment contract records the enforcement and success boundary.
 

@@ -86,10 +86,11 @@ persistence boundaries. Never replace those semantics with value-change
 listeners, sequence order, global transient state, inferred deduplication, or
 imperative readings of controlled language.
 
-Resolve capability inputs on demand, attain each capability only under its
-contract success condition for the current attempt, and activate follow-ons only
-after success. Keep infrastructure distinct from behavioral targets, preserve
-explicit simulation boundaries, and add no undeclared operational guarantee.
+Resolve capability inputs on demand. If a required input cannot be resolved,
+leave the target unattained, create no occurrence, and activate no follow-on.
+Attain each capability only under its contract success condition for the current
+attempt. Keep infrastructure distinct from behavioral targets, preserve explicit
+simulation boundaries, and add no undeclared operational guarantee.
 
 ## Implementation
 
